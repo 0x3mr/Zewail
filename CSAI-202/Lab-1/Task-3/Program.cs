@@ -37,9 +37,8 @@ class Program
         }
         Console.WriteLine();
 
-        // Print arrayY elements (only the ones that were filled)
         Console.WriteLine("Array Y elements:");
-        for (i = 0; i < N; i++) // Print only the filled elements of arrayY
+        for (i = 0; i < N; i++)
         {
             Console.Write(arrayY[i] + " ");
         }
