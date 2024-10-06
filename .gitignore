@@ -1,3 +1,7 @@
 # Ignore all C# junk directories
 **/obj/
 **/bin/
+
+# Ignore all executable files
+*.[oOxX]
+*.out
