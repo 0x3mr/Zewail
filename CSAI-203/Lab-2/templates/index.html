@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZC</title>
+    <meta name='description' content='the official website'/>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+    <div class="content">
+        <h1>Zewail City</h1>
+        <label>Answer the current form:</label><br><br>
+        <form id="form" action="/send" method="POST" name="form">
+            <label for="user">Username</label>
+            <input class="username" type="text" name="user" required />
+            <br>
+            <label for="coursename">Course Name:</label>
+            <input class="coursename" type="text" name="coursename" required />
+            <br><br>
+            <button type="submit">Send</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+</body>
+</html>
