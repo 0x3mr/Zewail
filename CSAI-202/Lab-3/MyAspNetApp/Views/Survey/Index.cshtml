@@ -1,0 +1,24 @@
+@model dynamic
+@{
+    ViewData["Title"] = "Survey";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Result" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+    </div>
+    <div>
+        <label>Hobbies:</label>
+        @foreach (var hobby in new[] { "Reading", "Traveling", "Gaming", "Cooking", "Sports" })
+        {
+            <div>
+                <input type="checkbox" name="hobbies" value="@hobby" />
+                <label>@hobby</label>
+            </div>
+        }
+    </div>
+    <button type="submit">Submit</button>
+</form>

@@ -1,0 +1,14 @@
+@model dynamic
+@{
+    ViewData["Title"] = "Survey Results";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>Name: @ViewData["Name"]</p>
+<p>Hobbies:</p>
+<ul>
+    @foreach (var hobby in ViewData["Hobbies"] as string[])
+    {
+        <li>@hobby</li>
+    }
+</ul>
