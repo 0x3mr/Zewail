@@ -16,7 +16,7 @@ def send():
 def index2():
     username = request.args.get('username')
     coursename = request.args.get('coursename')
-    return render_template('index2.html', username=username, coursename=coursename)
+    return render_template('index.html', username=username, coursename=coursename)
 
 if __name__ == '__main__':
     app.run(debug=True)
