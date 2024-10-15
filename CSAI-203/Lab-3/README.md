@@ -43,7 +43,7 @@ The API documentation is available in Swagger format, providing details on each 
 
 ### Swagger Documentation Screenshot
 
-![Swagger Documentation Screenshot](path_to_your_screenshot)
+![Screenshot_20241015_133218](https://github.com/user-attachments/assets/0bb2b04c-5cbd-43f5-8561-4ca23225e472)
 
 ## How to Run
 
