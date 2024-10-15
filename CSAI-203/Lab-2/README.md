@@ -19,7 +19,7 @@ This project is a simple web application built with Flask. It includes a basic f
 
 3. Run the Flask app:
    ```bash
-   flask run
+   python app.py
    ```
 
 4. Open your browser and go to:

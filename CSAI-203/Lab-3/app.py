@@ -46,6 +46,17 @@ def delete_course(courseID):
     return jsonify({'message': 'Course not found'}), 404
 
 
+@app.route('/courses/<string:courseID>', methods=['PUT'])
+def update_course(courseID):
+    updated_course = request.json
+    for course in courses:
+        if course['courseID'] == courseID:
+            course['name'] = updated_course.get('name', course['name'])
+            course['credits'] = updated_course.get('credits', course['credits'])
+            return jsonify(course)
+    return jsonify({'message': 'Course not found'}), 404
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -66,3 +77,7 @@ if __name__ == '__main__':
 # Delete a course
 #
 # curl http://127.0.0.1:5000/courses/CSAI-203 -X DELETE
+
+# Update a course
+#
+# curl -X PUT http://127.0.0.1:5000/courses/CSAI-202 -H "Content-Type: application/json" -d '{"name": "Database Systems II", "credits": 4}'
