@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a simple API for managing courses, built with Flask. The API includes five endpoints that allow users to perform CRUD operations (Create, Read, Update, and Delete) on courses.
+This lab contains a simple API for managing courses, built with Flask. The API includes five endpoints that allow users to perform CRUD operations (Create, Read, Update, and Delete) on courses.
 
 ## API Endpoints
 
