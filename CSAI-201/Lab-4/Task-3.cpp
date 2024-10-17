@@ -1,40 +1,45 @@
 #include <iostream>
 using namespace std;
 
-char* CompressArray(char arr[], int size) {
+char* CompressArray(char arr[], int size, int &compressedLen) {
     if (size == 0) { return 0; }
 
     char* amr = new char[size];
-    if (size == 0) { return 0; }
-    for (int i = 0; i < size; i++) {
-        amr[i] = arr[i];
-    }
+    for (int i = 0; i < size; i++) { amr[i] = ' '; }
 
-    for (int i = 0; i < size; i++) { cout << amr[i] << " "; }
+    // print 'amr' array before compressing
+    // for (int i = 0; i < size; i++) { cout << arr[i] << " "; }
 
+    int k = 0;
     for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (arr[j] == '#' || arr[j] == '$' || arr[j] == '&')
-            {
-                amr[j] = ' ';
-            }
+        if (!(arr[i] == '#' || arr[i] == '$' || arr[i] == '&')) {
+            amr[k] = arr[i];
+            k++;
         }
     }
+    compressedLen = k;
 
-    cout << endl;
-    for (int i = 0; i < size; i++) { cout << amr[i] << " "; }
+    // print 'amr' array after compressing
+    // cout << endl;
+    // for (int i = 0; i < size; i++) { cout << amr[i] << " "; }
 
     return amr;
 }
 
 int main() {
-    char test[] = {'1', '2', '$', '3', '4', '5'};
+    char test[] = "ckeo$mp##m&$n";
 
-    int num = sizeof(test)/sizeof(test[0]);
+    int compressedLen, testLen = sizeof(test)/sizeof(test[0]);
 
-    char* compressedArray = CompressArray(test, num);
+    cout << "           Array: ";
+    for (int i = 0; i < testLen; i++) { cout << test[i]; }
+    cout << endl;
 
-    int num2 = sizeof(compressedArray)/sizeof(compressedArray[0]);
+    char* compressedArray = CompressArray(test, testLen, compressedLen);
+
+    cout << "Compressed Array: ";
+    for (int i = 0; i < compressedLen; i++) { cout << compressedArray[i]; }
+    cout << endl;
 
     return 0;
 }
