@@ -63,15 +63,77 @@ Expected Output:
 Input:
 ```cpp
 int main() {
-    InventoryItem items[3];
-    items[0].setDetails(1, "Item1", 10.0);
-    items[1].setDetails(2, "Item2", 20.0);
-    items[2].setDetails(3, "Item3", 30.0);
-    for(int i = 0; i < 3; i++) {
-        items[i].display();
+    InventoryItem inventory[3] = {
+        InventoryItem(101, "Laptop", 999.99),
+        InventoryItem(102, "Mouse", 29.99),
+        InventoryItem(103, "Keyboard", 59.99)
+    };
+
+    cout << "=== Inventory Management System ===\n\n";
+
+    cout << "1. Listing all items:\n";
+    for (int i = 0; i < 3; i++) {
+        inventory[i].display();
     }
+    cout << endl;
+
+    cout << "2. Updating item ID 102:\n";
+    for (int i = 0; i < 3; i++) {
+        if (inventory[i].getItemID() == 102) {
+            cout << "Before update: ";
+            inventory[i].display();
+            
+            inventory[i].setItemName("Wireless Mouse");
+            inventory[i].setItemPrice(39.99);
+            
+            cout << "After update: ";
+            inventory[i].display();
+        }
+    }
+    cout << endl;
+
+    cout << "3. Displaying item ID 101:\n";
+    for (int i = 0; i < 3; i++) {
+        if (inventory[i].getItemID() == 101) {
+            inventory[i].display();
+        }
+    }
+
     return 0;
 }
 ```
+
 Expected Output:
-- Displays details of three inventory items.
+```
+=== Inventory Management System ===
+
+1. Listing all items:
+
+ Item #101:
+  - Laptop
+  - $999.99
+
+ Item #102:
+  - Mouse
+  - $29.99
+
+ Item #103:
+  - Keyboard
+  - $59.99
+
+2. Updating item ID 102:
+Before update: 
+ Item #102:
+  - Mouse
+  - $29.99
+After update: 
+ Item #102:
+  - Wireless Mouse
+  - $39.99
+
+3. Displaying item ID 101:
+
+ Item #101:
+  - Laptop
+  - $999.99
+```
