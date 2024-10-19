@@ -80,7 +80,7 @@ int main() {
     delete S3;
 
     // After the 1st run, Uncomment the next line and re-run
-    delete S2;
+    // delete S2;
 
     cout << "\n[Q6] What happens when you uncomment & run? and why is that??" << endl;
     cout << "\nThe program crashes because you are trying to delete a pointer that was already deleted.\n";
