@@ -1,0 +1,30 @@
+@page
+@model myNewPage
+@{
+    ViewData["Title"] = "Survey";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center">Welcome to my very epic page!</p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="bg-light p-4 rounded shadow-sm">
+                <div class="form-group">
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="FirstName" class="form-control" placeholder="Enter your first name">
+                </div>
+
+                <div class="form-group">
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" name="LastName" class="form-control" placeholder="Enter your last name">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

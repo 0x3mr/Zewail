@@ -1,0 +1,21 @@
+@page
+@model results
+@{
+    ViewData["Title"] = "Survey Results";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="bg-light p-4 rounded shadow-sm">
+                <h4>Survey Submission</h4>
+                <p class="result-item">First Name: <span class="text-primary">@Model.FirstName</span></p>
+                <p class="result-item">Last Name: <span class="text-primary">@Model.LastName</span></p>
+            </div>
+        </div>
+    </div>
+</div>
