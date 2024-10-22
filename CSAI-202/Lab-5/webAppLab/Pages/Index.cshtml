@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <style>
+        button .getlink {
+            color: red;
+            background-color: transparent;
+            padding: 5px 15px 5px 15px;
+            border-color: red;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            color: turquoise;
+            background-color: transparent;
+            border-color: turquoise;
+        }
+    </style>
+    <h1 class="display-4">Welcome</h1>
+    <p>@Model.msg</p>
+    <form method="post">
+        <input type="text" name="id"/>
+        <button>Post</button>
+    </form>
+    <br>
+    <a class="getlink" href="/">Get</a>
+</div>
