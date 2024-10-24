@@ -76,30 +76,34 @@ class LinkedList {
             }
 
             Node<T>* nodeToDelete;
-            if (position == 1) {
+
+            if (position == 1)
+            {
                 nodeToDelete = head;
-                head = head->getNext();
-            } else {
-                Node<T>* prevNode = head;
-                for (int i = 1; i < position - 1; ++i) {
-                    prevNode = prevNode->getNext();
+                head = nodeToDelete->getNext();
+            }
+            else
+            {
+                Node<T>* previousNode = head;
+                for (int i = 1; i < position - 1; i++) {
+                    previousNode = previousNode->getNext();
                 }
-                nodeToDelete = prevNode->getNext();
-                prevNode->setNext(nodeToDelete->getNext());
+                nodeToDelete = previousNode->getNext();
+                previousNode->setNext(nodeToDelete->getNext());
             }
 
             delete nodeToDelete;
+
             itemCount--;
             return true;
         }
 
         void printList() {
-            Node<T>* current = head;
-            while (current != nullptr) {
-                cout << current->getData() << " ";
-                current = current->getNext();
+            Node<T>* temp = head;
+            while (temp != nullptr) {
+                cout << temp->getData() << endl;
+                temp = temp->getNext();
             }
-            cout << endl;
         }
 
         int getItemCount() { return itemCount; }
@@ -108,22 +112,24 @@ class LinkedList {
 int main() {
     cout << endl << "#\n#   This code is being tested by 1-indexing\n#   and not zero indexing.\n#" << endl << endl;
 
-    LinkedList<int> list;
+    LinkedList<int> amr;
 
-    list.insert(1, 10);
-    list.insert(2, 20);
-    list.insert(3, 30);
-    list.insert(2, 15);
+    amr.insert(1, 1);
+    amr.insert(1, 2);
+    amr.insert(1, 3);
 
-    cout << "List after insertions: ";
-    list.printList();
+    amr.printList();
 
-    cout << "Data at position 3: " << list.getNodeDataAt(3) << endl;
+    cout << "------------------" << endl;
+    cout << amr.getNodeDataAt(1) << endl;
 
-    list.remove(2);
+    amr.remove(2);
 
-    cout << "List after removal: ";
-    list.printList();
+    cout << "------------------" << endl;
+    cout << amr.getNodeDataAt(2) << endl;
+
+    cout << "------------------" << endl;
+    cout << amr.getItemCount() << endl;
 
     cout << endl << "#\n#   This code is being tested by 1-indexing\n#   and not zero indexing.\n#" << endl << endl;
 
