@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 using namespace std;
 
 template <class T>
@@ -30,6 +31,11 @@ class LinkedList {
             itemCount = 0;
         }
 
+        // bool isEmpty() { return (head == nullptr) ? true : false; }
+        bool isEmpty() { return (head == nullptr); }
+
+        Node<T>* getHead() { return head; }
+
         Node<T>* getNodeAt(int position) {
             if (position < 1 || position > itemCount) { return nullptr; }
             if (position == 1) { return head; }
@@ -40,6 +46,36 @@ class LinkedList {
             }
 
             return temp;
+        }
+
+        LinkedList<T> cloneList() {
+            LinkedList<T> amr;
+
+            if (head != nullptr)
+            {
+                Node<T>* temp = head;
+
+                for (int i = 1; temp != nullptr; i++)
+                {
+                    amr.insert(i, temp->getData());
+                    temp = temp->getNext();
+                }
+            }
+
+            return amr;
+        }
+
+        void merge(LinkedList<T> ListToMerge)
+        {
+            if (head != nullptr && !(ListToMerge.isEmpty()))
+            {
+                Node<T>* temp = head;
+
+                while (temp->getNext() != nullptr) {
+                    temp = temp->getNext();
+                }
+                temp->setNext(ListToMerge.getHead());
+            }
         }
 
         T getNodeDataAt(int position) {
@@ -86,34 +122,6 @@ class LinkedList {
                 temp->setNext(newNode);
             }
             itemCount++;
-        }
-
-        bool remove(int position) {
-            if (position < 1 || position > itemCount) {
-                return false;
-            }
-
-            Node<T>* nodeToDelete;
-
-            if (position == 1)
-            {
-                nodeToDelete = head;
-                head = nodeToDelete->getNext();
-            }
-            else
-            {
-                Node<T>* previousNode = head;
-                for (int i = 1; i < position - 1; i++) {
-                    previousNode = previousNode->getNext();
-                }
-                nodeToDelete = previousNode->getNext();
-                previousNode->setNext(nodeToDelete->getNext());
-            }
-
-            delete nodeToDelete;
-
-            if (itemCount > 0) { itemCount--; }
-            return true;
         }
 
         void deleteFirst() {
@@ -194,14 +202,134 @@ class LinkedList {
             node = node->getNext();
             recPrint(node);
         }
-};
+
+        int recSum(Node<T>* node) {
+            if (node == nullptr) { return 0; }
+            if (typeid(node->getData()) == typeid(int)) {
+                return node->getData() + recSum(node->getNext());
+            } else {
+                return 0 + recSum(node->getNext());
+            }
+        }
+
+        bool remove(int position) {
+            if (position < 1 || position > itemCount) {
+                return false;
+            }
+
+            Node<T>* nodeToDelete;
+
+            if (position == 1)
+            {
+                nodeToDelete = head;
+                head = nodeToDelete->getNext();
+            }
+            else
+            {
+                Node<T>* previousNode = head;
+                for (int i = 1; i < position - 1; i++) {
+                    previousNode = previousNode->getNext();
+                }
+                nodeToDelete = previousNode->getNext();
+                previousNode->setNext(nodeToDelete->getNext());
+            }
+
+            delete nodeToDelete;
+
+            itemCount--;
+            return true;
+        }
+
+        bool deleteNode(T value) {
+            if (find(value))
+            {
+                Node<T>* nodeToDelete;
+
+                if (head->getData() == value)
+                {
+                    nodeToDelete = head;
+                    head = nodeToDelete->getNext();
+                }
+                else
+                {
+                    Node<T>* previousNode = head;
+                    while (previousNode->getNext() != nullptr && (previousNode->getNext())->getData() != value) {
+                        previousNode = previousNode->getNext();
+                    }
+                    nodeToDelete = previousNode->getNext();
+                    previousNode->setNext(nodeToDelete->getNext());
+                }
+
+                delete nodeToDelete;
+
+                itemCount--;
+                return true;
+            }
+            return false;
+        }
+
+        bool deleteNodes(T value) {
+            bool deleted = false;
+            while (find(value))
+            {
+                Node<T>* nodeToDelete;
+
+                if (head->getData() == value)
+                {
+                    nodeToDelete = head;
+                    head = nodeToDelete->getNext();
+                }
+                else
+                {
+                    Node<T>* previousNode = head;
+                    while (previousNode->getNext() != nullptr && (previousNode->getNext())->getData() != value) {
+                        previousNode = previousNode->getNext();
+                    }
+                    nodeToDelete = previousNode->getNext();
+                    previousNode->setNext(nodeToDelete->getNext());
+                }
+
+                delete nodeToDelete;
+                itemCount--;
+                deleted = true;
+            }
+            return deleted;
+        }
+
+        void reverse() {
+            if (head != nullptr)
+            {
+                T data[itemCount];
+
+                Node<T>* temp = head;
+                for (int i = itemCount - 1; temp != nullptr; i--) {
+                    data[i] = temp->getData();
+                    temp = temp->getNext();
+                }
+
+                temp = head;
+                for (int i = 0; temp != nullptr; i++) {
+                    temp->setData(data[i]);
+                    temp = temp->getNext();
+                }
+            }
+            else
+            {
+                cout << "Your list is empty!" << endl;
+            }
+        }
+};  
 
 int main() {
     cout << endl << "#\n#   This code is being tested by 1-indexing\n#   and not zero indexing.\n#" << endl << endl;
 
     LinkedList<int> amr;
 
-    amr.insert(1, 1);position
+    amr.insert(1, 1);
+    amr.insert(2, 2);
+    amr.insert(3, 3);
+    amr.insert(4, 4);
+    amr.insert(5, 5);
 
     amr.printList();
 
@@ -232,6 +360,29 @@ int main() {
     amr.printList();
     cout << "pre 2: " << amr.getItemCount() << endl;
     cout << "------------------" << endl;
+
+    amr.deleteNode(4);
+    amr.printList();
+
+    amr.insert(5, 5);
+    amr.insert(6, 5);
+    amr.insert(7, 5);
+    amr.printList();
+    amr.deleteNodes(5);
+    amr.printList();
+
+    amr.reverse();
+    amr.printList();
+
+    cout << "Sum: " << amr.recSum(amr.getNodeAt(1)) << endl;
+
+    LinkedList<int> clonedList = amr.cloneList();
+    
+    cout << endl;
+    clonedList.printList();
+
+    amr.merge(clonedList);
+    amr.printList();
 
     cout << endl << "#\n#   This code is being tested by 1-indexing\n#   and not zero indexing.\n#" << endl << endl;
 
