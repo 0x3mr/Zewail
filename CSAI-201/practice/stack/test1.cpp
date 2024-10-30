@@ -72,23 +72,35 @@ class Stack {
 int main() {
     cout << "#\n# Testing of Stack\n#\n" << endl;
 
-    cout << "1. Is the stack empty? 1" << endl << endl;
-    Stack<int> stack(5);
+    Stack<int> amr(5);
 
-    cout << "2. Pushing 1, 2, 3 onto the stack..." << endl << endl;
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
+    cout << "\nIs the stack empty?" << endl;
+    cout << amr.isEmpty() << endl << endl;
 
-    cout << "3.\n   Is the stack empty? 0\n   Is the stack full? 0" << endl << endl;
+    cout << "\nIs the stack full?" << endl;
+    cout << amr.isFull() << endl << endl;
 
-    cout << "4. Peeking at the top element: " << stack.peek() << endl << endl;
+    cout << "\nPushing 5 elements to the stack:" << endl;
+    cout << amr.push(1) << endl;
+    cout << amr.push(2) << endl;
+    cout << amr.push(3) << endl;
+    cout << amr.push(4) << endl;
+    cout << amr.push(5) << endl;
 
-    cout << "5. Popping an element: " << stack.pop()->getData() << endl << endl;
+    cout << "\nPeeking at the top element:" << endl;
+    cout << amr.peek() << endl;
 
-    cout << "6.\n   Is the stack empty? 0\n   Is the stack full? 0" << endl << endl;
+    cout << "\nPoping the top element:" << endl;
+    cout << " - Poped element: " << amr.pop() << endl;
+    cout << " - Top element:   " << amr.peek() << endl;
 
-    // MORE TO BE ADDED
+    cout << "\nPoping the top element again:" << endl;
+    
+    // Creating a temporary node to store .pop()'s data in it
+    Node<int>* temp = amr.pop();
+    
+    cout << " - Poped element: " << temp->getData() << endl;
+    cout << " - Top element:   " << amr.peek() << endl;
 
    return 0;
 }
