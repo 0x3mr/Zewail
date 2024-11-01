@@ -1,4 +1,4 @@
-### Question 1: Basic Terminology
+### Question 1:
 *What is direct recursion?*
 
    A. When a function calls another indirectly.  
@@ -13,7 +13,7 @@ B. When a function calls itself directly.
 
 ---
 
-### Question 2: Recursive Types
+### Question 2:
 *Which of the following describes linear recursion?*
 
    A. A recursive function calls itself more than once.  
@@ -28,7 +28,7 @@ B. A recursive function calls itself exactly once.
 
 ---
 
-### Question 3: Recursive Base Case
+### Question 3:
 *What is the purpose of a base case in recursion?*
 
    A. To increase the size of the problem in each recursive call.  
@@ -43,7 +43,7 @@ B. To provide a termination point for the recursion.
 
 ---
 
-### Question 4: Recursion Structure
+### Question 4:
 *Which statement correctly describes the recursive step in a function?*
 
    A. It simplifies the problem into a smaller instance.  
@@ -58,7 +58,7 @@ A. It simplifies the problem into a smaller instance.
 
 ---
 
-### Question 5: Tail Recursion
+### Question 5:
 *What defines a tail recursive function?*
 
    A. The function contains multiple recursive calls.  
@@ -73,7 +73,7 @@ B. The recursive call is the last action in the function.
 
 ---
 
-### Question 6: Memory Usage
+### Question 6:
 *Why can recursion lead to high memory usage?*
 
    A. Each recursive call creates a new stack frame.  
@@ -88,7 +88,7 @@ A. Each recursive call creates a new stack frame.
 
 ---
 
-### Question 7: Common Mistakes
+### Question 7:
 *What is a common mistake in recursive implementations?*
 
    A. Having too many base cases.  
@@ -103,7 +103,7 @@ B. Missing a base case or failing to reduce the problem size.
 
 ---
 
-### Question 8: Applications of Recursion
+### Question 8:
 *Which of the following is NOT typically solved using recursion?*
 
    A. Tree and Graph Traversal  
@@ -118,7 +118,7 @@ D. Simple Multiplication
 
 ---
 
-### Question 9: Drawbacks of Recursion
+### Question 9:
 *Which of the following is a drawback of using recursion?*
 
    A. Recursive code always runs faster.  
@@ -133,7 +133,7 @@ B. Recursive functions can lead to stack overflow errors.
 
 ---
 
-### Question 10: Types of Recursion
+### Question 10:
 *What type of recursion is used when a function indirectly calls itself by calling another function that then calls the original function?*
 
    A. Direct Recursion  
@@ -148,7 +148,7 @@ C. Indirect Recursion
 
 ---
 
-### Question 11: Tail Recursion Characteristics
+### Question 11:
 *What advantage does tail recursion provide over other types of recursion?*
 
    A. It requires fewer recursive calls.  
@@ -163,7 +163,7 @@ B. It allows compilers to optimize memory usage by reusing the stack frame.
 
 ---
 
-### Question 12: Recursive Steps
+### Question 12:
 *Which of the following ensures that a recursive function will terminate?*
 
    A. Increasing the problem size in each recursive call  
@@ -178,7 +178,7 @@ D. Reducing the problem size towards a base case
 
 ---
 
-### Question 13: Analyzing Code Execution
+### Question 13:
 *What is the output of the following code snippet?*
 
 ```cpp
@@ -210,7 +210,7 @@ B. 3 2 1
 
 ---
 
-### Question 14: Recursive Algorithm Design
+### Question 14:
 *Which of the following is the correct base case for a recursive factorial function?*
 
 ```cpp
@@ -235,7 +235,7 @@ D. Both B and C
 
 ---
 
-### Question 15: Debugging Recursive Functions
+### Question 15:
 *What will be the result of calling `sum(4)` in the following code?*
 
 ```cpp
@@ -258,7 +258,7 @@ B. 6
 
 ---
 
-### Question 16: Recursion Complexity
+### Question 16:
 *Which of the following statements about recursion complexity is TRUE?*
 
    A. Linear recursion has exponential time complexity.  
@@ -273,7 +273,7 @@ B. Tree recursion often has exponential time complexity.
 
 ---
 
-### Question 17: Recursive Tree Traversal
+### Question 17:
 *In which of the following scenarios can infinite recursion occur if a base case is not defined?*
 
     A. A function that increments a counter until it reaches a maximum
@@ -288,7 +288,7 @@ B. A function that calls itself to decrement a number until it reaches zero
 
 ---
 
-### Question 18: Recursive Stack Behavior
+### Question 18:
 *Consider the following recursive function:*
 
 ```cpp
@@ -313,7 +313,7 @@ A. 1, 2, 6
 
 ---
 
-### Question 19: Tail Recursion Optimization
+### Question 19:
 *Which of the following can optimize a tail-recursive function to avoid stack overflow?*
 
    A. Compiler optimizations that replace recursive calls with loops  
@@ -328,7 +328,7 @@ A. Compiler optimizations that replace recursive calls with loops
 
 ---
 
-### Question 20: Recursive vs Iterative Solutions
+### Question 20:
 *Which is NOT a drawback of recursion compared to iteration?*
 
    A. Potential for stack overflow with deep recursion  
@@ -343,7 +343,7 @@ C. Generally easier to implement and understand for all types of problems
 
 ---
 
-### Question 21: Fibonacci Sequence Recursion
+### Question 21:
 *What is the time complexity of a naive recursive Fibonacci function?*
 
 ```cpp
@@ -366,7 +366,7 @@ C. O(2^n)
 
 ---
 
-### Question 22: Base Case Pitfalls
+### Question 22:
 *Which of the following causes a recursive function to run indefinitely?*
 
    A. Having no recursive call  
@@ -381,7 +381,7 @@ B. Having no base case
 
 ---
 
-### Question 23: Recursive Stack Frames
+### Question 23:
 *Which of the following statements about stack frames in recursion is FALSE?*
 
    A. Each recursive call creates a new stack frame.  
@@ -396,7 +396,7 @@ B. Each stack frame is deleted immediately after the recursive call is made.
 
 ---
 
-### Question 24: Recursion on Arrays
+### Question 24:
 *What is the base case in the following recursive function that finds the minimum value in an array?*
 
 ```cpp
@@ -419,7 +419,7 @@ B. When `n` is equal to 1
 
 ---
 
-### Question 25: Recursive Tree Depth
+### Question 25:
 *How many recursive calls are made when calculating `fibonacci(5)` with the following recursive function?*
 
 ```cpp
@@ -442,7 +442,7 @@ C. 15
 
 ---
 
-### Question 26: Recursive Functions with Multiple Calls
+### Question 26:
 *Which type of recursion is used in the following example?*
 
 ```cpp
@@ -465,7 +465,7 @@ C. Tree Recursion
 
 ---
 
-### Question 27: Identifying Indirect Recursion
+### Question 27:
 *Which of the following code examples demonstrates indirect recursion?*
 
    A.
@@ -503,7 +503,7 @@ B.
 
 ---
 
-### Question 28: Performance Comparison
+### Question 28:
 *Which is generally faster, an iterative or a recursive Fibonacci function?*
 
    A. Recursive, because it uses multiple calls  
@@ -518,7 +518,7 @@ B. Iterative, because it calculates each value only once
 
 ---
 
-### Question 29: Recursive and Iterative Equivalence
+### Question 29:
 *Which of the following can always be implemented both recursively and iteratively?*
 
    A. Depth-First Tree Traversal  
@@ -533,7 +533,7 @@ D. All of the above
 
 ---
 
-### Question 30: Recursive Dynamic Programming
+### Question 30:
 *Which of the following improves the efficiency of a recursive Fibonacci function to O(n)?*
 
    A. Replacing recursion with iteration  
