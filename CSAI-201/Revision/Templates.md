@@ -14,15 +14,30 @@ B. For generic programming
 
 
 ### Question 2:
-How many types of Templates are there in C++?
+Consider the following template class definition. What will the `print` function output for an object `myPair` of `MyPair<int, double>` when called with arguments `(5, 3.14)`?
 
-    A. 1
-    B. 2
-    C. 3
-    D. 4
+```cpp
+template <typename T, typename U>
+class MyPair {
+public:
+    T first;
+    U second;
+
+    MyPair(T f, U s) : first(f), second(s) {}
+
+    void print() {
+        std::cout << "First: " << first << ", Second: " << second << std::endl;
+    }
+};
+```
+
+    A. First: 5, Second: 3.14
+    B. First: 5, Second: 5
+    C. First: 3.14, Second: 5
+    D. Compilation error
 <details>
 <summary>Answer</summary>
-B. 2
+A. First: 5, Second: 3.14
 </details>
 
 ---
@@ -171,57 +186,83 @@ int Add(int Num1, int Num2) {
 <details>
 <summary>Answer</summary>
 A. 
+
 ```cpp
 template <typename T>
 T Add(T Num1, T Num2) {
     return (Num1 + Num2);
 }
 ```
+
 </details>
 
 ---
 
 
 ### Question 11:
-How do you create an object of a class template?
+Given the following code snippet, what will be the output of the `compute` function for `myObj.compute(4)` if `T` is instantiated with `double`?
 
-    A. By using default constructor
-    B. By specifying the data type
-    C. Only through inheritance
-    D. By using a static method
+```cpp
+template <typename T>
+class MyClass {
+public:
+    T compute(T x) {
+        return x * x;
+    }
+};
+```
+
+    A. 16
+    B. 4.0
+    C. 16.0
+    D. Compilation error
 <details>
 <summary>Answer</summary>
-B. By specifying the data type
+C. 16.0
 </details>
 
 ---
 
 
 ### Question 12:
-What is the primary difference between `typename` and `class` in template declarations?
+In the code below, what will be the result of `Sum<int, double>(3, 3.5)`?
 
-    A. `typename` only works with classes
-    B. `class` only works with primitive types
-    C. There is no practical difference
-    D. `typename` is more modern and preferred
+```cpp
+template <typename T, typename U>
+auto Sum(T a, U b) -> decltype(a + b) {
+    return a + b;
+}
+```
+
+    A. 6.5
+    B. 3
+    C. 3.5
+    D. Compilation error
 <details>
 <summary>Answer</summary>
-C. There is no practical difference
+A. 6.5
 </details>
 
 ---
 
 
 ### Question 13:
-Which of the following is TRUE about template errors?
+Which of the following template function calls will result in a compilation error?
 
-    A. Always clear and easy to understand
-    B. Typically produce unhelpful and confusing messages
-    C. Never occur during compilation
-    D. Only happen with complex data types
+```cpp
+template <typename T>
+T Square(T x) {
+    return x * x;
+}
+```
+
+    A. Square<int>(5)
+    B. Square<double>(5.5)
+    C. Square<std::string>("hello")
+    D. Square<char>('A')
 <details>
 <summary>Answer</summary>
-B. Typically produce unhelpful and confusing messages
+C. Square<std::string>("hello")
 </details>
 
 ---
@@ -408,15 +449,25 @@ A. Compilation error
 
 
 ### Question 26:
-What does SFINAE stand for in advanced template concepts?
+Consider the code below. What is the output when `FindMinMax<double>(3.14, 2.71)` is called?
 
-    A. Simplified Function Instantiation And Implementation Error
-    B. Substitution Failure Is Not An Error
-    C. Standard Function Interface And Nested Execution
-    D. Synchronous Function Instantiation And Nested Expansion
+```cpp
+template <typename T>
+std::pair<T, T> FindMinMax(T a, T b) {
+    if (a < b)
+        return {a, b};
+    else
+        return {b, a};
+}
+```
+
+    A. 3.14, 2.71
+    B. 2.71, 3.14
+    C. Compilation error
+    D. Depends on the compiler
 <details>
 <summary>Answer</summary>
-B. Substitution Failure Is Not An Error
+B. 2.71, 3.14
 </details>
 
 ---
@@ -468,15 +519,22 @@ A. Completely redefine a template for a specific type
 
 
 ### Question 30:
-Which book is recommended for advanced template understanding?
+What would be the output of the following code when `Multiply<int>(2, 3.5)` is called?
 
-    A. "C++ Primer"
-    B. "Modern C++ Design" by Andrei Alexandrescu
-    C. "Effective C++" by Scott Meyers
-    D. "The C++ Programming Language"
+```cpp
+template <typename T>
+T Multiply(T a, T b) {
+    return a * b;
+}
+```
+
+    A. 7.0
+    B. 6
+    C. 3.5
+    D. Compilation error
 <details>
 <summary>Answer</summary>
-B. "Modern C++ Design" by Andrei Alexandrescu
+D. Compilation error
 </details>
 
 ---
