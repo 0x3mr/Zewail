@@ -85,6 +85,38 @@ D. When Top = Max_Size - 1
 ### Question 7:
 *What is returned by Pop() operation when the stack is empty in the given implementation?*
 
+```cpp
+class Stack {
+private:
+    int Top;
+    int* Stack_Array;
+    int Max_Size;
+
+public:
+    Stack(int n) {
+        Stack_Array = new int[n];
+        Max_Size = n;
+        Top = -1;
+    }
+
+    int Pop() {
+        if (!Is_Empty()) {
+            int d = Stack_Array[Top];
+            Top = Top - 1;
+            return d;
+        }
+        else {
+            std::cout << "\n The stack is empty";
+            return -10000;  // Error value
+        }
+    }
+
+    bool Is_Empty() {
+        return (Top == -1);
+    }
+};
+```
+
     A. 0
     B. -1
     C. NULL
