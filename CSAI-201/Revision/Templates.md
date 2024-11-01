@@ -534,7 +534,207 @@ T Multiply(T a, T b) {
     D. Compilation error
 <details>
 <summary>Answer</summary>
-D. Compilation error
+B. 6
+</details>
+
+---
+
+### Question 31:
+Consider the following function template and specialization. What will be the output of `printType(10)`?
+
+```cpp
+template <typename T>
+void printType(T) {
+    std::cout << "Generic template" << std::endl;
+}
+
+template <>
+void printType<int>(int) {
+    std::cout << "Specialized template for int" << std::endl;
+}
+```
+
+    A. Generic template
+    B. Specialized template for int
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+C. Compilation error
+</details>
+
+---
+
+### Question 32:
+Given the following code, what will be the output of `maxVal<double>(5, 4.5)`?
+
+```cpp
+template <typename T>
+T maxVal(T a, T b) {
+    return (a > b) ? a : b;
+}
+```
+
+    A. 5
+    B. 5.0
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+A. 5
+</details>
+
+---
+
+### Question 33:
+What will happen if the following code is executed with `getValue<int, double>(5, 3.14)`?
+
+```cpp
+template <typename T, typename U>
+auto getValue(T a, U b) -> decltype(a + b) {
+    return a + b;
+}
+```
+
+    A. 8
+    B. 8.14
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+B. 8.14
+</details>
+
+---
+
+### Question 34:
+What is the output when `testFunction<int, double>(3, 2.5)` is called?
+
+```cpp
+template <typename T, typename U>
+void testFunction(T a, U b) {
+    if (a > b)
+        std::cout << "Integer is greater" << std::endl;
+    else
+        std::cout << "Double is greater or equal" << std::endl;
+}
+```
+
+    A. Integer is greater
+    B. Double is greater or equal
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+C. Compilation error
+</details>
+
+---
+
+### Question 35:
+For the following code, what will be the output of `calculate<double>(3.5, 2)`?
+
+```cpp
+template <typename T>
+T calculate(T a, T b) {
+    return a + b;
+}
+```
+
+    A. 5.5
+    B. 5
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+A. 5.5
+</details>
+
+---
+
+### Question 36:
+What will be the output when `getSum<int>(3.14, 2.71)` is called?
+
+```cpp
+template <typename T>
+T getSum(T a, T b) {
+    return a + b;
+}
+```
+
+    A. 5
+    B. 5.85
+    C. Compilation error
+    D. Undefined behavior
+<details>
+<summary>Answer</summary>
+A. 5
+</details>
+
+--- 
+
+### Question 37:
+What will be the output when `getSum<double>(3, 7)` is called?
+
+```cpp
+template <typename T>
+T getSum(T a, T b) {
+    return a + b;
+}
+```
+
+   A. 10  
+   B. 10.0  
+   C. Compilation error  
+   D. Undefined behavior  
+
+<details>
+<summary>Answer</summary>
+A. 10  
+</details>
+
+---
+
+### Question 38:
+What will be the output when `getSum<double>(3.0, 7)` is called?
+
+```cpp
+template <typename T>
+T getSum(T a, T b) {
+    return a + b;
+}
+```
+
+   A. 10  
+   B. 10.0  
+   C. Compilation error  
+   D. Undefined behavior  
+
+<details>
+<summary>Answer</summary>
+A. 10  
+</details>
+
+---
+
+### Question 39:
+What will be the output when `getSum<double>(3.0, 7.0)` is called?
+
+```cpp
+template <typename T>
+T getSum(T a, T b) {
+    return a + b;
+}
+```
+
+   A. 10  
+   B. 10.0  
+   C. Compilation error  
+   D. Undefined behavior  
+
+<details>
+<summary>Answer</summary>
+A. 10  
 </details>
 
 ---
