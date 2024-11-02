@@ -10,7 +10,7 @@ int minElement(int n, int arr[])
 }
 
 int main() {
-    int amr[5] = {2, 6, 9, 1, 5};
+    int amr[6] = {2, 6, 9, 1, -99, 5};
     cout << "Recursion: " << minElement(5, amr) << endl;
 
     int min = amr[0];

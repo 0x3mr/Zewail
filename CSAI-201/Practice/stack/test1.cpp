@@ -96,10 +96,7 @@ int main() {
 
     cout << "\nPoping the top element again:" << endl;
     
-    // Creating a temporary node to store .pop()'s data in it
-    Node<int>* temp = amr.pop();
-    
-    cout << " - Poped element: " << temp->getData() << endl;
+    cout << " - Poped element: " << amr.pop()->getData() << endl;
     cout << " - Top element:   " << amr.peek() << endl;
 
    return 0;
