@@ -38,7 +38,7 @@
    - [ ] Custom firmware groups for diverse devices
    - [ ] Products that allow customer-specific adaptations
    - [ ] Tools used for implementing custom systems for specific needs
-   <details><summary>Answer</summary>Correct Answer(s): 1, 3, 4</details>
+   <details><summary>Answer</summary>Correct Answer(s): 1 & 3</details>
 
 ### 7. A platform in software engineering can be defined as:
    - [ ] A product that supports new application development
