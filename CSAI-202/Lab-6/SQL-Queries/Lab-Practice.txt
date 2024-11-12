@@ -1,0 +1,50 @@
+create table employee (
+    SSN int NOT NULL PRIMARY KEY,
+    Fname varchar(50) NOT NULL,
+    Mint char(2),
+    Lname varchar(50) NOT NULL,
+    Bdate date,
+    Address varchar(50),
+    Salary decimal(6,2),
+    SuperSSN int FOREIGN KEY REFERENCES employee(SSN)
+);
+
+create table department (
+    Dname varchar(50),
+    Dno int PRIMARY KEY,
+    MgrSSN int FOREIGN KEY REFERENCES employee(SSN),
+    MgrStartDate date
+);
+
+alter table employee add Dno int FOREIGN KEY REFERENCES department(Dnumber);
+
+create table dependent (
+    Bdate date,
+    Relationship varchar(16),
+    DName varchar(50) NOT NULL PRIMARY KEY,
+    ESSN int FOREIGN KEY REFERENCES employee(SSN)
+)
+
+create table deptLocations (
+    Dnumber int,
+    Dlocation varchar(15),
+    PRIMARY KEY (Dnumber, Dlocation),
+    FOREIGN KEY (Dnumber) REFERENCES department(Dno)
+);
+
+create table project (
+    Pname varchar(15),
+    Pnumber int PRIMARY KEY,
+    Plocation varchar(15),
+    Dnum int,
+    FOREIGN KEY (Dnum) REFERENCES department(Dno)
+)
+
+create table worksOn (
+    WESSN INT,
+    Pnumber int,
+    Hours decimal(3,2),
+    PRIMARY KEY (WESSN, Pnumber),
+    FOREIGN KEY (WESSN) REFERENCES employee(SSN),
+    FOREIGN KEY (Pnumber) REFERENCES project(Pnumber)
+)
