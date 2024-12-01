@@ -1,0 +1,74 @@
+1
+SELECT StudentId FROM FavouriteColors WHERE Color LIKE 'Black';
+
+2
+SELECT First_Name FROM StudentInfo WHERE Email LIKE '%@hotmail.com';
+
+3
+SELECT [First_Name], [Last_Name] FROM StudentInfo WHERE [First_Name] LIKE 'Abd%' OR [Last_Name] LIKE 'Abd%';
+
+4
+SELECT DISTINCT Emotion FROM Emotions;
+
+5
+**
+
+6
+**
+
+7
+**
+
+8
+**
+
+9
+**
+
+10
+SELECT [First_Name], [Email], [Color] FROM StudentInfo, FavouriteColors WHERE [Learning_Pattern] LIKE 'Visual' AND Id=StudentId
+order by [First_Name]
+
+11
+SELECT [First_Name], [Learning_Pattern] FROM StudentInfo WHERE [Learning_Pattern] LIKE '%Visual%' AND [Learning_Pattern] LIKE '%Kinesthetic%' AND [Learning_Pattern] LIKE '%Reading and Writing%' AND [Learning_Pattern] LIKE '%Auditory%'
+
+12
+ALTER TABLE [Favourite_Colors]
+ALTER COLUMN Color NOT NULL
+
+Error message:
+Started executing query at Line 1
+Msg 156, Level 15, State 1, Line 2
+Incorrect syntax near the keyword 'NOT'.
+Total execution time: 00:00:00
+
+13
+SELECT [Answer] FROM [QuestionAnswers] WHERE Id=1
+
+14
+SELECT DISTINCT [Question], [Answer] FROM FormQuestions, QuestionAnswers WHERE FormQuestions.QuestionId=QuestionAnswers.QuestionId
+
+15
+SELECT [First_Name] FROM StudentInfo WHERE First_Name LIKE 'S%' AND LEN(First_Name) = 5;
+
+16
+SELECT [Last_Name] FROM StudentInfo WHERE Last_Name LIKE '%y'
+
+17
+**
+
+18
+create table Majors(
+    sid int,
+    major varchar(3),
+    FOREIGN KEY (sid) REFERENCES StudentInfo(Id)
+)
+
+19
+
+20
+first query:
+CREATE VIEW Display
+AS SELECT concat([First_Name], [Last_Name]) FullName, Learning_Preference from StudentInfo
+second query:
+SELECT * FROM Display;

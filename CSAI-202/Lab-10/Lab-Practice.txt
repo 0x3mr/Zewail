@@ -1,0 +1,75 @@
+1.
+SELECT StudentId FROM FavouriteColors WHERE Color = 'black';
+
+2.
+SELECT * FROM StudentInfo WHERE Email LIKE '%hotmail%';
+
+3.
+SELECT * FROM StudentInfo WHERE [First Name] LIKE 'Abd%' OR [Last Name] LIKE 'Abd%';
+
+4.
+SELECT DISTINCT Emotion FROM Emotions;
+
+5.
+SELECT
+    [First Name] AS FirstName,
+    [Last Name] AS LastName,
+    Email,
+    FavouriteColors.Color AS FavouriteColor
+FROM
+    StudentInfo, FavouriteColors
+WHERE
+    StudentInfo.Id = FavouriteColors.StudentId
+    AND [Learning Preference] = 'visual'
+ORDER BY
+    [First Name] ASC, [Last Name] ASC;
+
+6.
+SELECT Id, [First Name], [Last Name], Email FROM StudentInfo
+WHERE [Learning Pattern] IN ('visual', 'auditory', 'kinesthetic', 'reading/writing')
+GROUP BY Id, [First Name], [Last Name], Email
+HAVING COUNT(DISTINCT [Learning Pattern]) = 4;
+
+7.
+Saving changes is not permitted. The changes you have made require the following tables to be dropped and re-created.
+You have either made changes to a table that can't be re-created or enabled the option Prevent saving changes that require the table to be re-created.
+
+8.
+SELECT * FROM QuestionAnswers WHERE QuestionId = 1;
+
+
+9.
+SELECT
+    QuestionAnswers.QuestionId,
+    FormQuestions.Question,
+    QuestionAnswers.StudentId,
+    QuestionAnswers.Answer
+FROM
+    QuestionAnswers, FormQuestions
+WHERE
+    QuestionAnswers.QuestionId = FormQuestions.QuestionId;
+
+
+10.
+SELECT * FROM StudentInfo WHERE [First Name] LIKE 'S____';
+
+11.
+SELECT * FROM StudentInfo WHERE [Last Name] LIKE '%y';
+
+12.
+ALTER TABLE StudentInfo ADD CONSTRAINT Unique_StudentId UNIQUE (Id);
+
+
+CREATE TABLE Majors (
+    StudentId NVARCHAR(255) NOT NULL,
+    Major VARCHAR(255) NOT NULL,
+    FOREIGN KEY (StudentId) REFERENCES StudentInfo(Id)
+);
+
+INSERT INTO Majors (StudentId, Major)
+VALUES
+    ('202123226', 'Nanoscience'),
+    ('202134567', 'Computer Science'),
+    ('202145678', 'Electrical Engineering'),
+    ('202156789', 'Physics'),
+    ('202167890', 'Mechanical Engineering');
