@@ -1,0 +1,20 @@
+1.
+SELECT Fname, Pno
+FROM WORKS_ON
+right join EMPLOYEE on SSN=Essn
+ORDER by [Lname] DESC;
+
+2.
+SELECT Fname
+FROM EMPLOYEE E
+WHERE NOT EXISTS
+(
+    SELECT 1 FROM WORKS_ON TEMP
+    WHERE TEMP.Essn= E.SSN
+);
+
+3.
+
+4.
+
+5.

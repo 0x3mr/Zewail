@@ -1,0 +1,38 @@
+﻿@page
+@model LabPractice.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <br><br><br><br><br>
+    <div>
+        <h2>Worker List</h2>
+
+        @if (Model.Workers.Count == 0)
+        {
+            <p>No workers found.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var worker in Model.Workers)
+                    {
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
