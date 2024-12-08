@@ -1,8 +1,5 @@
 #pragma once
 #include <iostream>
-#include <stack>
-#include <queue>
-#include <vector>
 
 #include "MatrixGraph.h"
 using namespace std;
@@ -139,39 +136,11 @@ void MatrixGraph<T>::PrintGraph()
 template<typename T>
 void MatrixGraph<T>::DFS(const T & startV) const
 {
-	// Step 1: Create a stack with the total number of vertices in the graph as the size.
-
-
-	// Step 2: Choose any vertex as the traversal's beginning point. Push a visit to that vertex and add it to the stack.
-
-	// Step 3 - Push any non-visited adjacent vertices of a vertex at the top of the stack to the top of the stack.
-
-	// Step 4 - Repeat steps 3 and 4 until there are no more vertices to visit from the vertex at the top of the stack.
-
-	// Step 5 - If there are no new vertices to visit, go back and pop one from the stack using backtracking.
-
-	// Step 6 - Continue using steps 3, 4, and 5 until the stack is empty.
-
-	// Step 7 - When the stack is entirely unoccupied, create the final spanning tree by deleting the graph's unused edges.
 }
 
 template<typename T>
 void MatrixGraph<T>::BFS(const T & startV) const
 {
-	// Step 1: get the vertex to start with first
-
-	// Step 2: we want to know the vertices we have already visited so we create a vector to store in it visited vertices
-
-	// Step 3: vector queue for breadth first search
-
-	// Step 4: enqueue the index of the start vertice and mark it as visited
-
-	// Step 5: LOOP IN QUEUE:
-	//         - Step 6: remove the front of the queue (we will dequeue it)
-	//
-	//         - Step 7: cout the vertex we are standing on
-	//
-	//         - Step 8: continue to the rest of the queue to check on the rest of unvisited vertices
 }
 
 template<typename T>
