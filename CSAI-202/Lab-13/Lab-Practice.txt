@@ -1,0 +1,12 @@
+1.
+select Min(Salary) from EMPLOYEE
+
+2.
+select Sex, Avg(Salary) averageSalary from EMPLOYEE
+where Sex='F'
+group by [Sex]
+
+3.
+select [Fname], Salary from EMPLOYEE where Salary < (select Avg(Salary) from EMPLOYEE)
+
+4.
