@@ -10,3 +10,81 @@ group by [Sex]
 select [Fname], Salary from EMPLOYEE where Salary < (select Avg(Salary) from EMPLOYEE)
 
 4.
+SELECT * 
+FROM employee 
+WHERE bdate = (
+    SELECT MIN(bdate) 
+    FROM employee
+);
+
+5.
+SELECT employee.fname, 
+       employee.minit, 
+       employee.lname AS fullname, 
+       pname AS [Project name] 
+FROM employee 
+JOIN project 
+ON dno = dnum  
+ORDER BY lname;
+
+6.
+SELECT fname, 
+       minit, 
+       lname, 
+       salary * 1.1 AS newSalary 
+FROM employee 
+WHERE ssn IN (
+    SELECT essn 
+    FROM works_on, project 
+    WHERE works_on.pno = project.pnumber 
+      AND project.pname = 'ProductX'
+);
+
+7.
+SELECT pname, 
+       pnumber, 
+       COUNT(essn) AS employeessn 
+FROM project 
+JOIN works_on 
+ON pnumber = pno  
+GROUP BY pname, pnumber;
+
+8.
+SELECT AVG(salary) AS averageSalary, 
+       department.dname 
+FROM employee, department 
+WHERE employee.dno = department.dnumber 
+GROUP BY department.dnumber, department.dname;
+
+9.
+SELECT COUNT(essn) AS DependentName 
+FROM dependent 
+WHERE dependent.essn IN (
+    SELECT ssn 
+    FROM employee 
+    WHERE employee.fname = 'John'
+);
+
+10.
+SELECT SUM(works_on.hours) AS totalHours, 
+       project.pname 
+FROM works_on, project 
+WHERE works_on.pno = project.pnumber   
+GROUP BY project.pnumber, project.pname;
+
+11.
+SELECT emotion, 
+       COUNT(*) AS numberofstudents 
+FROM emotions 
+GROUP BY emotion 
+HAVING emotion = 'tired/sleepy';
+
+12.
+SELECT COUNT(*) AS numberofstudents 
+FROM courseemotions 
+WHERE emotion LIKE 'Good%';
+
+13.
+SELECT COUNT(*) AS numberofstudents 
+FROM studentinfo 
+WHERE [First Name] LIKE 'A%';
