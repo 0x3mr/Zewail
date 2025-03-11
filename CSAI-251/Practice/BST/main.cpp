@@ -58,6 +58,69 @@ class BST {
         }
     }
 
+    static Node* findMinimumNode(Node* subRoot)
+    {
+        while (subRoot->getLeft() != nullptr)
+        {
+            subRoot = subRoot->getLeft();
+        }
+
+        return subRoot;
+    }
+
+    static Node* recursionDelete(Node* subRoot, int target)
+    {
+        if (subRoot == nullptr)
+        {
+            return subRoot; // or a nullptr (same thing)
+        }
+        else if (target < subRoot->getData())
+        {
+            subRoot->setLeft(recursionDelete(subRoot->getLeft(), target));
+        }
+        else if (target > subRoot->getData())
+        {
+            subRoot->setRight(recursionDelete(subRoot->getRight(), target));
+        }
+        else
+        {
+            // First case: It is a leaf (no childs)
+            if (subRoot->getLeft() == nullptr && subRoot->getRight() == nullptr)
+            {
+                delete subRoot;
+                subRoot = nullptr;
+                return subRoot;
+            }
+            // Second case: There is a child on either sides (left or right)
+            //              It is on the right side here.
+            else if (subRoot->getLeft() == nullptr)
+            {
+                Node* temp = subRoot;
+                subRoot = subRoot->getRight();
+                delete temp;
+                return subRoot;
+            }
+            // Second case: There is a child on either sides (left or right)
+            //              It is on the left side here.
+            else if (subRoot->getRight() == nullptr)
+            {
+                Node* temp = subRoot;
+                subRoot = subRoot->getLeft();
+                delete temp;
+                return subRoot;
+            }
+            // Third case: There are 2 children
+            else
+            {
+                Node* temp = findMinimumNode(subRoot->getRight());
+                subRoot->setData(temp->getData());
+                subRoot->setRight(recursionDelete(subRoot->getRight(), temp->getData()));
+            }
+        }
+
+        return subRoot;
+    }
+
     static void recursionPreOrderTraversal(Node* subRoot)
     {
         if (subRoot == nullptr) return;
@@ -108,6 +171,10 @@ class BST {
             recursionInsert(root, key);
         }
 
+        void remove(int target) {
+            root = recursionDelete(root, target);
+        }
+
         void preOrderTraversal() const {
             recursionPreOrderTraversal(root);
         }
@@ -122,6 +189,7 @@ class BST {
 
         void destroyTree() {
             recursionDestroyTree(root);
+            root = nullptr;
         }
 
         int size() {
@@ -137,7 +205,7 @@ int main() {
     //
 	//                 8 
 	//               /   \
-	//              3     13
+	//              3     12
 	//             / \   / 
 	//            1   4 9
 
@@ -164,6 +232,11 @@ int main() {
 	cout << "POST-ORDER" << endl;
 	tree.postOrderTraversal();
 	cout << endl << endl;
+
+    cout << ">> Delete the node with value 3 from the tree." << endl;
+    tree.remove(3);
+    tree.preOrderTraversal();
+    cout << endl << endl;
 
     return 0;
 }
