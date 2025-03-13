@@ -146,6 +146,9 @@ found:
   p->context.ra = (uint64)forkret;
   p->context.sp = p->kstack + PGSIZE;
 
+  p->priority = 1;
+  p->cycles_run = 0;
+
   return p;
 }
 
@@ -454,14 +457,26 @@ scheduler(void)
     // processes are waiting.
     intr_on();
 
+    int ran = 0;
+
     for(p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
       if(p->state == RUNNABLE) {
         // Switch to chosen process.  It is the process's job
         // to release its lock and then reacquire it
         // before jumping back to us.
+
+        if (p->cycles_run >= p->priority) {
+          release(&p->lock);
+          continue;
+        }
+
         p->state = RUNNING;
         c->proc = p;
+
+        p->cycles_run++;
+        ran = 1;
+
         swtch(&c->context, &p->context);
 
         // Process is done running for now.
@@ -470,6 +485,16 @@ scheduler(void)
       }
       release(&p->lock);
     }
+
+    if (ran == 0) {
+      for (p = proc; p < &proc[NPROC]; p++)
+      {
+        if (p->state == RUNNABLE) {
+          p->cycles_run = 0;
+        }
+      }
+    }
+
   }
 }
 
@@ -685,4 +710,24 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+int
+setprio(int priority)
+{
+  struct proc* proc = myproc();
+  acquire(&proc->lock);
+  proc->priority = priority;
+  release(&proc->lock);
+  return 0;
+}
+
+int
+getprio(void)
+{
+  struct proc* proc = myproc();
+  acquire(&proc->lock);
+  int p = proc->priority;
+  release(&proc->lock);
+  return p;
 }

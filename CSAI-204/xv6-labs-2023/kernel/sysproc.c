@@ -108,3 +108,16 @@ sys_helloYou(void) {
 
   return 0;
 }
+
+uint64
+sys_setprio(void) {
+  int priority;
+  argint(0, &priority);
+  if (priority <= 0) return -1;
+  return setprio(priority);
+}
+
+uint64
+sys_getprio(void) {
+  return getprio();
+}

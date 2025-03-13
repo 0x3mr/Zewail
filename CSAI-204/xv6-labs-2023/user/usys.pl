@@ -38,3 +38,5 @@ entry("sleep");
 entry("uptime");
 entry("hello");
 entry("helloYou");
+entry("setprio");
+entry("getprio");

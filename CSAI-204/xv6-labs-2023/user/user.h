@@ -24,6 +24,8 @@ int sleep(int);
 int uptime(void);
 int hello(void);
 int sys_helloYou(void);
+int setprio(int);
+int getprio();
 
 // ulib.c
 int stat(const char*, struct stat*);

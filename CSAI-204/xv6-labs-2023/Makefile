@@ -190,6 +190,11 @@ UPROGS=\
 	$U/_zombie\
 	$U/_hello\
 	$U/_helloYou\
+	$U/_testmyscheduler\
+	$U/_testmyscheduler1\
+	$U/_testmyscheduler2\
+	$U/_testmyscheduler3\
+	$U/_testmyscheduler4\
 
 
 
@@ -284,7 +289,7 @@ QEMUGDB = $(shell if $(QEMU) -help | grep -q '^-gdb'; \
 	then echo "-gdb tcp::$(GDBPORT)"; \
 	else echo "-s -p $(GDBPORT)"; fi)
 ifndef CPUS
-CPUS := 3
+CPUS := 1
 endif
 ifeq ($(LAB),fs)
 CPUS := 1
