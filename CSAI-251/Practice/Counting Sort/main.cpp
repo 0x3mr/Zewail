@@ -11,12 +11,10 @@ void printArray(vector<int> array, int size)
 
 void countSort(vector<int> &array, int size)
 {
-    int maxValue = *max_element(array.begin(), array.end()) + 1;
-
-    vector<int> amr(maxValue, 0), space(size);
+    vector<int> amr(10, 0), space(size);
     
     for (int i = 0; i < size; i++) amr[array[i]]++;
-    for (int i = 1; i < maxValue; i++) amr[i] = amr[i] + amr[i - 1];
+    for (int i = 1; i < 10; i++) amr[i] = amr[i] + amr[i - 1];
 
     for (int i = 0; i < size; i++) {
         space[amr[array[i]] - 1] = array[i];
