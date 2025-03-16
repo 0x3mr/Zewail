@@ -23,7 +23,7 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int hello(void);
-int sys_helloYou(void);
+int helloYou(char *name);
 int setprio(int);
 int getprio();
 
