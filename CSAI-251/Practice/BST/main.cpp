@@ -49,13 +49,14 @@ class BST {
 
             recursionInsert(subRoot->getLeft(), key);
         }
-        else
+        else if (key > subRoot->getData())
         {
-            // Else, (which means it is bigger than or equal),
+            // Else, (which means it is bigger than),
             // then it should go to the right side of the subRoot.
 
             recursionInsert(subRoot->getRight(), key);
         }
+        // We will not add duplicates in BST
     }
 
     static Node* findMinimumNode(Node* subRoot)
