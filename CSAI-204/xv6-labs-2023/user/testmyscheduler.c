@@ -11,7 +11,7 @@ int main() {
     if (rc < 0) {
         printf("fork failed\n");
     } else if (rc > 0) {
-        setprio(1);
+        setprio(10);
         for (int i = 0; i < 50; i++) {
             for (int64 j = 0; j <= 10000000; j++) {
                 if (j == 10000000) {
@@ -32,4 +32,4 @@ int main() {
     }
 
     exit(0);
-}
+}y

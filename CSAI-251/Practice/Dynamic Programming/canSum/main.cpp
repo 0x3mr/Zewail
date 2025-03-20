@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-// #include <unordered_map>
 #include <map>
 
 bool canSum(int target, std::vector<int> &array, std::map<int, bool> &memo)
@@ -17,7 +16,7 @@ bool canSum(int target, std::vector<int> &array, std::map<int, bool> &memo)
         if (canSum(target - i, array, memo))
         {
             memo[target] = true;
-            return true;
+            return memo[target];
         }
     }
 
@@ -35,7 +34,11 @@ int main() {
 
     std::cout << std::endl << "that adds up to: " << target << std::endl;
 
-    std::cout << canSum(target, amr, memorizedValues) << std::endl;
+    if (canSum(target, amr, memorizedValues)) {
+        std::cout << "Yes" << std::endl;
+    } else {
+        std::cout << "No" << std::endl;
+    }
 
     return 0;
 }

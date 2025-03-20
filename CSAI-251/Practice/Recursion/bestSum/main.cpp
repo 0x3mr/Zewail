@@ -1,42 +1,34 @@
 #include <iostream>
 #include <vector>
 #include <climits>
-std::vector<int>dp;
 
-int bestSum(int target, std::vector<int> &array)
-{
-    if (target == 0) return 1;
+int bestSum(int target, const std::vector<int> &array) {
+    if (target == 0) return 0;
 
-    if(dp[target] != -1)
-        return dp[target];
+    int minElements = INT_MAX;
 
-    long long size = INT_MAX;
-    for (int i : array)
-    {
-        if (i <= target) {
-            long long result = bestSum(target - i, array);
-         
-            if (result != INT_MAX && result + 1 < size) 
-                size = result + 1;
+    for (int num : array) {
+        if (num <= target) {
+            int result = bestSum(target - num, array);
+            if (result != INT_MAX && result + 1 < minElements) {
+                minElements = result + 1;
+            }
         }
     }
-    dp[target] = size;
-    return size;
+
+    return minElements;
 }
 
 int main() {
-    // int target = 8;
-    // std::vector<int> amr = {3, 5, 2};
-    // dp = std::vector<int>(target + 5, -1);
-    // std::cout << "Can we get a sum of numbers from this array: " << std::endl;
+    int target = 8;
+    std::vector<int> array = {3, 5, 2};
 
-    // for (int num : amr) std::cout << num << " ";
+    std::cout << "Can we get a sum of numbers from this array: " << std::endl;
+    for (int num : array) std::cout << num << " ";
+    std::cout << std::endl << "that adds up to: " << target << std::endl;
 
-    // std::cout << std::endl << "that adds up to: " << target << std::endl;
-
-    // int condition = bestSum(target, amr);
-    // std::cout << " ==" << condition << std::endl;
-    // std::cout << ((condition == INT_MAX) ? -1 : condition) << std::endl;
+    int result = bestSum(target, array);
+    std::cout << "Minimum number of elements required: " << (result == INT_MAX ? -1 : result) << std::endl;
 
     return 0;
 }
