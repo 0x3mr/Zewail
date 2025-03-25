@@ -14,6 +14,7 @@ void countSort(vector<int> &array, int size)
     vector<int> amr(10, 0), space(size);
     
     for (int i = 0; i < size; i++) amr[array[i]]++;
+
     for (int i = 1; i < 10; i++) amr[i] = amr[i] + amr[i - 1];
 
     for (int i = 0; i < size; i++) {
