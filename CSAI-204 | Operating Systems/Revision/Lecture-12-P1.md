@@ -148,11 +148,6 @@ C. File contents
 
 ---
 
-*(More questions continue in the file...)*
-
-
----
-
 ### Question 11:
 *What does a bitmap in a file system signify?*
 
