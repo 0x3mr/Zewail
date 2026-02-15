@@ -1,0 +1,12 @@
+.pfp {
+    height: 64px;
+    width: 64px;
+}
+
+.centerit {
+    flex: auto;
+}
+
+table, th, td {
+    border: 1px solid blueviolet;
+}

@@ -1,0 +1,38 @@
+{
+    "1": {
+       "id": 123456,
+       "img": "https://d2q97jj8nilsnk.cloudfront.net/images/tesla-model-s-plaid-0-60-fastest-tesla.jpg",
+       "brand": "Tesla",
+       "price": "$89,990",
+       "model": "Model S",
+       "horsepower": "670 hp",
+       "name": "Tesla Model S Plaid"
+    },
+    "2": {
+       "id": 234567,
+       "img": "https://di-uploads-pod41.dealerinspire.com/sunriseford/uploads/2023/10/2024-Ford-Mustang-GT-1.jpg",
+       "brand": "Ford",
+       "price": "$55,300",
+       "model": "Mustang GT",
+       "horsepower": "450 hp",
+       "name": "Ford Mustang GT"
+    },
+    "3": {
+       "id": 345678,
+       "img": "https://carwow-uk-wp-3.imgix.net/bmw-i8-roadster-orange-driving-top-1.jpg",
+       "brand": "BMW",
+       "price": "$147,500",
+       "model": "i8",
+       "horsepower": "369 hp",
+       "name": "BMW i8 Roadster"
+    },
+    "4": {
+       "id": 456789,
+       "img": "https://cdn.arstechnica.net/wp-content/uploads/2020/12/2020-Audi-R8-1-scaled.jpg",
+       "brand": "Audi",
+       "price": "$142,700",
+       "model": "R8",
+       "horsepower": "562 hp",
+       "name": "Audi R8 V10"
+    }
+}

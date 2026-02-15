@@ -1,0 +1,251 @@
+@font-face {
+    font-family: "Inter";
+    src: url(../assets/fonts/coolvetica-rg.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "OpenSans";
+    src: url(../assets/fonts/open-sans.ttf) format("woff2");
+}
+
+html, body, div, p, ul, h3, img, span {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-image: url(../assets/images/Blue-Universe-Background-Wallpapers-61237.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    margin: 25px;
+    padding: 18px 35px;
+    border-radius: 16px;
+    
+    border: solid 1px rgba(54, 165, 255, 0.058);
+    background: rgba(54, 165, 255, 0.135);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 35px rgba(0, 102, 152, 0.341);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-family: "OpenSans";
+}
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navigation {
+    /* border: solid; */
+    display: flex;
+    gap: 50px;
+    list-style: none;
+}
+
+.iconLogo {
+    width: 5%;
+    height: auto;
+    /* border: solid; */
+}
+
+.iconProfile {
+    width: 1.4vw;
+    height: auto;
+}
+
+.profile {
+    /* border: solid; */
+    display: flex;
+    align-items: center;
+}
+
+.profile img {
+    margin-right: 0.8vw;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    border: solid 0.15vw rgba(0, 0, 0, 0.066);
+    box-shadow: 0px 0px 64px rgba(119, 203, 255, 0.202);
+    border-radius: 16px;
+
+    margin: 25px auto;
+}
+
+.profileFront {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 50px;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter';
+    margin-left: 3vw;
+    font-size: 6vw;
+    color: white;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.258);
+}
+
+.profDesc {
+    font-size: 2vw;
+}
+
+.userPhoto {
+    border-radius: 100%;
+    width: 15vw;
+    height: auto;
+    padding: 0.55vw;
+    border: solid 0.5vw white;
+    box-shadow: 0px 0px 45px rgba(154, 194, 255, 0.781);
+}
+
+.profileHorizontal {
+    display: flex;
+    flex-direction: row;
+
+    font-family: "OpenSans";
+    font-size: 22px;
+    color: white;
+}
+
+.profileSidebar {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 25px;
+    border: solid 0.15vw rgba(0, 0, 0, 0.066);
+    box-shadow: 0px 0px 32px rgba(119, 203, 255, 0.132);
+    border-radius: 16px;
+    margin: 25px;
+}
+
+.rec form {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    /* margin-top: 2vh; */
+}
+
+.rec h3 {
+    font-size: 1vw;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.rec input,
+.rec textarea,
+.rec select {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9vw;
+}
+
+.rec button {
+    font-size: 1vw; /* viewport width */
+    padding: 10px;
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer1vw;
+}
+
+.rec button:hover {
+    background: #16a34a;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5vh 0;
+    border-bottom: solid 1px white;
+    padding-bottom: 1vw;
+}
+
+.cardInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+}
+
+.cardInfo img {
+    width: 1.6vw;
+    height: auto;
+}
+
+.cardInfo span {
+    margin-left: 0.5vw;
+    font-size: 1.2vw;
+}
+
+.cardDesc {
+    margin: 1.5vh 0;
+    font-size: 0.9vw;
+}
+
+.cardRating {
+    margin: 0vw 0vw;
+    font-size: 1vw;
+}
+
+.profileDescription {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 25px;
+    border: solid 0.15vw rgba(0, 0, 0, 0.066);
+    box-shadow: 0px 0px 32px rgba(119, 203, 255, 0.132);
+    border-radius: 16px;
+    margin: 25px;
+    margin-left: 0px;
+}
+
+.editProfileBtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+    margin-top: 1.5vw;
+    padding: 0.8vw 2vw;
+    font-size: 1.1vw;
+    font-family: "OpenSans";
+    color: white;
+    text-decoration: none;
+    border: solid 1px rgba(84, 218, 255, 0.5);
+    background: rgba(54, 165, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(54, 165, 255, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+.editProfileBtn:hover {
+    background: rgba(0, 44, 56, 0.3);
+    box-shadow: 0px 0px 25px rgba(84, 218, 255, 0.6);
+    transform: translateY(-2px);
+}

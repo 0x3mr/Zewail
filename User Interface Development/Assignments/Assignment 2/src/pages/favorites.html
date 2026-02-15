@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/image.png" />
+    <link rel="stylesheet" href="../output.css" />
+    <title>Favorites</title>
+  </head>
+  <body
+    class="bg-sport-dark text-brand-white font-montserrat eco:bg-eco-white eco:text-eco-green"
+  >
+    <div class="max-w-[1280px] mx-auto px-4">
+      <div class="grid grid-cols-12">
+        <!-- Navbar -->
+        <div class="col-start-2 col-span-10 my-4">
+          <nav
+            class="z-100 shadow-[0_10px_50px_5px_rgba(200,0,0,0.1)] eco:shadow-[0_10px_50px_5px_rgba(0,196,78,0.15)] flex items-center justify-between text-lg font-normal font-montserrat bg-gray-500/30 eco:bg-eco-green/20 border border-gray-400/20 eco:border-eco-green/40 rounded-3xl py-4 px-6 relative"
+          >
+            <!-- Logo -->
+            <img src="../assets/image.png" class="w-8" />
+
+            <!-- Hamburger Button -->
+            <button
+              id="navToggle"
+              class="md:hidden text-white eco:text-eco-green focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-8 h-8"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+
+            <!-- Menu -->
+            <div
+              id="navMenu"
+              class="flex-col md:flex-row md:flex gap-6 eco:text-brand-black absolute md:static top-20 left-0 w-full md:w-auto bg-gray-500/60 eco:bg-eco-green/10 md:bg-transparent backdrop-blur-xl md:backdrop-blur-0 border border-white/20 eco:border-eco-green/30 md:border-none shadow-xl md:shadow-none rounded-2xl md:rounded-none hidden md:flex overflow-hidden transition-all duration-300"
+            >
+              <a href="index.html" class="py-3 px-6 md:p-0 hover:opacity-70"
+                >Home</a
+              >
+              <a href="cars.html" class="py-3 px-6 md:p-0 hover:opacity-70"
+                >Cars</a
+              >
+              <a href="favorites.html" class="py-3 px-6 md:p-0 hover:opacity-70"
+                >Favorites</a
+              >
+              <a href="compare.html" class="py-3 px-6 md:p-0 hover:opacity-70"
+                >Comparisons</a
+              >
+            </div>
+          </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="col-start-3 col-span-8 py-8 flex flex-col items-center">
+          <div
+            id="favorites-container"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
+          >
+            <!-- Favorite cards will appear here -->
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Favorites JS -->
+    <script src="../js/favorites.js" defer></script>
+
+    <!-- Apply saved theme -->
+    <script>
+      const navToggle = document.querySelector("#navToggle");
+      const navMenu = document.querySelector("#navMenu");
+
+      navToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("hidden");
+      });
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "eco") {
+        document.documentElement.classList.add("eco");
+      } else {
+        document.documentElement.classList.remove("eco");
+      }
+    </script>
+  </body>
+</html>

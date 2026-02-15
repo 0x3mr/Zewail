@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #fafafa;
+}
+
+header {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  text-align: center;
+  padding: 40px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.about {
+  background-image: url("https://wallpapers.com/images/featured/avengers-endgame-mghdp4gaqzu4q4us.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  padding: 50px;
+  border: 8px dashed #04ff00;
+  color: white;
+}
+
+.projects {
+  background-color: #fff;
+  padding: 50px;
+  border-top: 3px dotted #4facfe;
+}
+
+.card {
+  background-color: #f4f4f4;
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+  /* x y blur rgb_function(#,#,#,opacity); */
+}

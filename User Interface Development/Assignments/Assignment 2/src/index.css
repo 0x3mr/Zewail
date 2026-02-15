@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Register Montserrat */
+@font-face {
+  font-family: 'MontserratLocal';
+  src: url('./fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================
+   THEME VARIABLES
+============================ */
+@theme {
+  /* Sport Mode (default) */
+  --color-sport-red: rgba(206, 0, 0, 1);
+  --color-sport-dark: rgba(39, 39, 39, 1);
+  --color-brand-white: rgba(255, 255, 255, 1);
+
+  /* Eco Mode */
+  --color-eco-green: rgba(0, 196, 78, 1);
+  --color-eco-white: rgba(255, 255, 255, 1);
+  --color-brand-black: rgb(31, 31, 31, 1);
+
+  /* Fonts */
+  --font-montserrat: "MontserratLocal", sans-serif;
+}
+
+/* ============================
+   CUSTOM THEME VARIANT (eco)
+============================ */
+@custom-variant eco (&:where(.eco, .eco *));
+
+/* ============================
+   Custom Utilities
+============================ */
+.text-shadow-subtle {
+  text-shadow: 1px 1px 24px rgba(241, 19, 19, 0.38);
+}

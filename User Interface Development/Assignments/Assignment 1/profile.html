@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/profile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+</head>
+    <body>
+        <nav class="navbar">
+            <img src="assets/images/0x3mrIcon.png" class="iconLogo">
+            <ul class="navigation">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="profile">
+                <img src="assets/images/userProfileIcon.png" class="iconProfile">
+                <span><a href="profile.html">Profile</a></span>
+            </div>
+        </nav>
+        <br>
+        <br>
+        <div class="container">
+            <div class="profileFront">
+                <img src="assets/images/basha.jpg" class="userPhoto">
+                <div class="profileInfo">
+                    <div class="profName">Amr Abdelfattah</div>
+                    <div class="profDesc">Junior Software Engineer</div>
+                    <a href="editProfile.html" class="editProfileBtn">Edit Profile</a>
+                </div>
+            </div>
+            <div class="profileHorizontal">
+                <div class="profileSidebar">
+                    <div class="card">
+                        <div class="cardInfo">
+                            <img src="assets/images/author.png">
+                            <span>Joe</span>
+                        </div>
+                        <div class="cardDesc">
+                            Something relevant idk
+                        </div>
+                        <div class="cardRating">
+                            ⭐⭐⭐⭐
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="cardInfo">
+                            <img src="assets/images/author.png">
+                            <span>Bro</span>
+                        </div>
+                        <div class="cardDesc">
+                            Submits on time everytime
+                        </div>
+                        <div class="cardRating">
+                            ⭐⭐⭐
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="cardInfo">
+                            <img src="assets/images/author.png">
+                            <span>Moe</span>
+                        </div>
+                        <div class="cardDesc">
+                            We do good cash
+                        </div>
+                        <div class="cardRating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <form id="recForm">
+                            <h3>Post a Recommendation</h3>
+
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required>
+
+                            <label for="desc">Description</label>
+                            <textarea id="desc" rows="3" placeholder="Write something..." required></textarea>
+
+                            <label for="rating">Rating</label>
+                            <select id="rating" required>
+                                <option value="">Select rating</option>
+                                <option value="1">1 ★</option>
+                                <option value="2">2 ★★</option>
+                                <option value="3">3 ★★★</option>
+                                <option value="4">4 ★★★★</option>
+                                <option value="5">5 ★★★★★</option>
+                            </select>
+
+                            <button type="submit">Post Recommendation</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="profileDescription">
+                    I’m someone who loves creating and figuring out how things work. I’m always learning, building, and looking for better ways to bring ideas to life.
+                    <br>
+                    <br>
+                    Skills
+                    <br>
+                    Problem Solving - Critical Thinking
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    const form = document.getElementById('recForm');
+    const sidebar = document.querySelector('.profileSidebar');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const desc = document.getElementById('desc').value.trim();
+        const rating = document.getElementById('rating').value;
+
+        if (!name || !desc || !rating) return;
+
+        const card = document.createElement('div');
+
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="cardInfo">
+                <img src="assets/images/author.png">
+                <span>${name}</span>
+            </div>
+            <div class="cardDesc">${desc}</div>
+            <div class="cardRating">${'⭐'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+        `;
+
+        sidebar.insertBefore(card, form.parentElement);
+        
+        form.reset();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const profileData = JSON.parse(localStorage.getItem('profileData'));
+        
+        if (profileData) {
+            document.querySelector('.profName').textContent = profileData.name || 'Amr Abdelfattah';
+            document.querySelector('.profDesc').textContent = profileData.title || 'Junior Software Engineer';
+            document.querySelector('.profileDescription').innerHTML = `
+                ${profileData.bio || ''}<br><br>
+                Skills<br>${profileData.skills || ''}
+            `;
+            document.querySelector('.userPhoto').src = profileData.photo || 'assets/images/basha.jpg';
+        }
+    });
+</script>

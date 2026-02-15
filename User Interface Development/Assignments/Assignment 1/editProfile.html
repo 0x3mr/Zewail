@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/editProfile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="assets/images/0x3mrIcon.png" class="iconLogo">
+        <ul class="navigation">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="profile">
+            <img src="assets/images/userProfileIcon.png" class="iconProfile">
+            <span><a href="profile.html">Profile</a></span>
+        </div>
+    </nav>
+
+    <div class="editContainer">
+        <h1>Edit Your Profile</h1>
+        <form id="editForm" class="editForm">
+            <div class="formGroup">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="formGroup">
+                <label for="title">Title</label>
+                <input type="text" id="title" required>
+            </div>
+
+            <div class="formGroup">
+                <label for="bio">Bio / Description</label>
+                <textarea id="bio" rows="4" required></textarea>
+            </div>
+
+            <div class="formGroup">
+                <label for="skills">Skills</label>
+                <input type="text" id="skills">
+            </div>
+
+            <div class="formGroup">
+                <label for="photo">Profile Photo</label>
+                <input type="file" id="photo" accept="image/*">
+                <small style="opacity: 0.8;">Leave empty to keep current photo</small>
+            </div>
+
+            <div class="formButtons">
+                <button type="submit" class="saveBtn">Save Changes</button>
+                <a href="profile.html" class="cancelBtn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('editForm');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedProfile = JSON.parse(localStorage.getItem('profileData'));
+            if (savedProfile) {
+                document.getElementById('name').value = savedProfile.name;
+                document.getElementById('title').value = savedProfile.title;
+                document.getElementById('bio').value = savedProfile.bio;
+                document.getElementById('skills').value = savedProfile.skills;
+            } else {
+                document.getElementById('name').value = "Amr Abdelfattah";
+                document.getElementById('title').value = "Junior Software Engineer";
+                document.getElementById('bio').value = "I’m someone who loves creating and figuring out how things work. I’m always learning, building, and looking for better ways to bring ideas to life.";
+                document.getElementById('skills').value = "Problem Solving, Critical Thinking";
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const title = document.getElementById('title').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+            const skills = document.getElementById('skills').value.trim();
+            const photoInput = document.getElementById('photo');
+
+            const profileData = { name, title, bio, skills };
+
+            if (photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    profileData.photo = event.target.result;
+                    localStorage.setItem('profileData', JSON.stringify(profileData));
+                    alert('Profile updated successfully!');
+                    window.location.href = 'profile.html';
+                };
+
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                const saved = JSON.parse(localStorage.getItem('profileData')) || {};
+
+                profileData.photo = saved.photo || 'assets/images/basha.jpg';
+
+                localStorage.setItem('profileData', JSON.stringify(profileData));
+
+                alert('Profile updated successfully!');
+                
+                window.location.href = 'profile.html';
+            }
+        });
+    </script>
+</body>
+</html>

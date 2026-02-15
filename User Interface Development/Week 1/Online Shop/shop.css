@@ -1,0 +1,43 @@
+.icon {
+    height: 64px;
+    width: 64px;
+    margin-right: 25px;
+}
+
+h1 {
+    margin-right: 25px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.product {
+    height: 256px;
+    width: 256px;
+    border: 2px solid blue;
+    border-radius: 20px;
+}
+
+.prodName {
+    font-weight: bold;
+}
+
+table, th, td {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid blueviolet;
+}
+
+.pfp {
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+}

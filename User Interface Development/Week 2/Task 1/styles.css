@@ -1,0 +1,62 @@
+body {
+  background-color: #f4f4f4;
+  color: rgb(30, 30, 30);
+  font-family: Arial, sans-serif;
+}
+
+/* element selector */
+h1 {
+  color: hsl(200, 80%, 40%);
+  /* hue saturation lightness (hsl function) */
+}
+
+/* ID selector */
+#main-title {
+  background-color: #cce7ff;
+  padding: 10px;
+}
+
+/* class selector */
+.content {
+  background-color: rgb(255, 255, 255);
+  padding: 15px;
+  border: 1px solid hsl(0, 0%, 80%);
+}
+
+/* descendant selector */
+nav ul li a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+/* child selector */
+nav > ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* sibling selector */
+h1 + nav {
+  background-color: rgb(240, 240, 255);
+  padding: 10px;
+}
+
+/* attribute selector */
+input[type="text"] {
+  border: 2px solid hsl(200, 60%, 50%);
+  padding: 5px;
+}
+
+/* pseudo-class selector */
+a:hover {
+  color: #ff6600;
+}
+
+button.btn:hover {
+  background-color: rgb(255, 204, 153);
+}
+
+/* nth-child example */
+li:nth-child(2) {
+  font-weight: bold;
+}
