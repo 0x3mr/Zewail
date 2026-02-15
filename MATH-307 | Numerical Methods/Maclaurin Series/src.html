@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maclaurin Series</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg flex flex-col">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Maclaurin Series: e^x</h1>
+        
+        <div class="mb-6">
+            <label class="block text-gray-700 mb-2">x value:</label>
+            <input type="number" id="xValue" value="0.5" step="0.1" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 mb-2">Error criterion εₛ (%):</label>
+            <input type="number" id="errorCriterion" value="0.05" step="0.01" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 mb-2">Animation speed (ms):</label>
+            <input type="number" id="animationSpeed" value="500" step="100" min="100" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <button id="startBtn" onclick="startCalculation()" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded mb-6">
+            Start
+        </button>
+
+        <div id="result" class="mb-6 text-lg"></div>
+
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-cyan-500 text-white">
+                    <th class="border border-gray-300 px-4 py-2">Terms</th>
+                    <th class="border border-gray-300 px-4 py-2">Result</th>
+                    <th class="border border-gray-300 px-4 py-2">εₜ (%)</th>
+                    <th class="border border-gray-300 px-4 py-2">εₐ (%)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <div class="flex justify-center pt-8">
+            by Amr :D
+        </div>
+    </div>
+
+    <script>
+        function factorial(n) {
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        let isRunning = false;
+
+        async function startCalculation() {
+            if (isRunning) return;
+            
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = true;
+            startBtn.classList.add('opacity-50');
+            isRunning = true;
+
+            const x = parseFloat(document.getElementById('xValue').value);
+            const errorCriterion = parseFloat(document.getElementById('errorCriterion').value);
+            const speed = parseInt(document.getElementById('animationSpeed').value);
+            const tableBody = document.getElementById('tableBody');
+            const result = document.getElementById('result');
+            
+            const trueValue = Math.exp(x);
+            tableBody.innerHTML = '';
+            result.innerHTML = '<p class="text-blue-600">Calculating...</p>';
+            
+            let sum = 0;
+            let prevSum = 0;
+            let n = 1;
+            let approxError = 100;
+
+            while (n <= 20) {
+                // Create row
+                const row = document.createElement('tr');
+                row.className = 'bg-yellow-100';
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2 text-center">${n}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">...</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">...</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">...</td>
+                `;
+                tableBody.appendChild(row);
+                await sleep(speed);
+
+                // Calculate and show Result
+                const term = Math.pow(x, n - 1) / factorial(n - 1);
+                sum += term;
+                row.children[1].textContent = sum.toFixed(8);
+                await sleep(speed);
+
+                // Calculate and show True Error
+                const trueError = Math.abs((trueValue - sum) / trueValue) * 100;
+                row.children[2].textContent = trueError.toFixed(3);
+                await sleep(speed);
+
+                // Calculate and show Approximate Error
+                if (n > 1 && sum !== 0) {
+                    approxError = Math.abs((sum - prevSum) / sum) * 100;
+                    row.children[3].textContent = approxError.toFixed(3);
+                } else {
+                    row.children[3].textContent = '';
+                }
+                await sleep(speed);
+
+                // Remove highlight
+                row.classList.remove('bg-yellow-100');
+
+                if (n > 1 && approxError < errorCriterion) {
+                    result.innerHTML = `
+                        <p><strong>True value e^${x}:</strong> ${trueValue.toFixed(6)}</p>
+                        <p><strong>Approximation:</strong> ${sum.toFixed(6)}</p>
+                        <p class="text-green-600"><strong>✓ Converged at ${n} terms</strong> (εₐ = ${approxError.toFixed(4)}% < εₛ = ${errorCriterion}%)</p>
+                    `;
+                    break;
+                }
+
+                prevSum = sum;
+                n++;
+            }
+
+            if (n > 20) {
+                result.innerHTML = `<p class="text-red-600">Did not converge within 20 terms</p>`;
+            }
+
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50');
+            isRunning = false;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>
