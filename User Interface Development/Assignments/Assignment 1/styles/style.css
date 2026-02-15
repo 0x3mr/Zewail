@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "Inter";
+    src: url(../assets/fonts/coolvetica-rg.ttf) format(truetype);
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	src: url(../assets/fonts/open-sans.ttf) format('woff2');
+}
+
+body.index {
+    padding: 0px;
+    margin: 0px;
+    background-image: url(../assets/images/main.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+.moto {
+    display: flex;
+    height: 93vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: "Inter";
+    font-size: 125px;
+}
+
+.moto span {
+    letter-spacing: 8px;
+    text-shadow: 0 0 40px rgb(60, 150, 191, 1)
+}
+
+.logo img {
+    width: 20%;
+}
+
+
+nav {
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 35px rgba(131, 216, 255, 0.515);
+    background-color: rgba(0, 179, 255, 0.09);
+    border: solid 0.5px rgba(60, 150, 191, 0.107);
+}
+
+.nav {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 93%;
+    padding: 15px 25px;
+
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 55px rgba(60, 150, 191, 0.267);
+    border-radius: 18px;
+
+    font-size: 20px;
+    font-family: "OpenSans";
+    color: white;
+}
+
+.nav a {
+    margin: 0 24px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}

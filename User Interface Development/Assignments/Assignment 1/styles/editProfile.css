@@ -1,0 +1,87 @@
+@import url('profile.css');
+
+.editContainer {
+    margin: 5vh auto;
+    width: 50%;
+    padding: 40px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 25px rgba(0, 102, 152, 0.35);
+    color: white;
+    font-family: "OpenSans", sans-serif;
+}
+
+.editContainer h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    outline: none;
+    color: #222;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    box-shadow: 0 0 0 2px rgba(0, 140, 255, 0.4);
+}
+
+.formButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.saveBtn, .cancelBtn {
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.saveBtn:hover {
+    background-color: #006ae6;
+    transform: translateY(-2px);
+}
+
+.cancelBtn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px rgba(255, 255, 255, 0.25);
+}
+
+.cancelBtn:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}

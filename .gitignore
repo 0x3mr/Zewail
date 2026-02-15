@@ -10,3 +10,5 @@
 .vscode
 .venv
 **/venv/
+
+node_modules/

@@ -1,0 +1,57 @@
+.about {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+  margin: 20px;
+  background-color: red;
+}
+
+.photo {
+  /* float: left; */
+  margin-right: 10px;
+}
+
+/* .redbg {
+  background-color: red;
+} */
+
+.clearfix::after {
+  content: "BROOOO";
+  display: block;
+  clear: both;
+}
+
+.stack {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  margin: 60px 20px;
+}
+
+.box {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+}
+
+.red {
+  background: red;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.green {
+  background: green;
+  top: 20px;
+  left: 40px;
+  z-index: 22;
+}
+
+.blue {
+  background: blue;
+  top: 40px;
+  left: 80px;
+  z-index: 3;
+}
