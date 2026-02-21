@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimal Step Size</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg flex flex-col">
+        <!-- <h1 class="text-3xl font-bold text-gray-800 mb-6">Maclaurin Series: e^x</h1> -->
+        <img src="equation.png" alt="equation" class="mb-8">
+        
+        <div class="mb-6">
+            <label for="xValue" class="block text-gray-700 mb-2">Starting x value:</label>
+            <input type="number" id="xValue" value="0.5" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <div class="mb-6">
+            <label for="hValue" class="block text-gray-700 mb-2">Starting h value:</label>
+            <input type="number" id="hValue" value="1" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <div class="mb-6">
+            <label for="roundNum" class="block text-gray-700 mb-2"># of rounds:</label>
+            <input type="number" id="roundNum" value="8" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- <div class="mb-6">
+            <label class="block text-gray-700 mb-2">Animation speed (ms):</label>
+            <input type="number" id="animationSpeed" value="500" step="100" min="100" class="border border-gray-300 rounded px-4 py-2 w-full">
+        </div> -->
+
+        <button id="startBtn" onclick="startCalculation()" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded mb-6">
+            Start
+        </button>
+
+        <div id="result" class="mb-6 text-lg"></div>
+
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-cyan-500 text-white">
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">h</th>
+                    <th class="border border-gray-300 px-4 py-2">Result</th>
+                    <th class="border border-gray-300 px-4 py-2">εₜ (%)</th>
+                    <!-- <th class="border border-gray-300 px-4 py-2">εₐ (%)</th> -->
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <div class="flex justify-center pt-8">
+            by Amr :D
+        </div>
+    </div>
+
+    <script>
+        let isRunning = false;
+
+        function f_of_x(x) {
+            y = (-0.1 * Math.pow(x, 4)) - (0.15 * Math.pow(x, 3)) - (0.5 * Math.pow(x, 2)) - (0.25 * x) + 1.2
+
+            return y
+        }
+
+        async function startCalculation() {
+            if (isRunning) return;
+            
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = true;
+            startBtn.classList.add('opacity-50');
+            isRunning = true;
+
+            const x = parseFloat(document.getElementById('xValue').value);
+            let h = parseFloat(document.getElementById('hValue').value);
+            const roundNum = parseFloat(document.getElementById('roundNum').value);
+            const speed = 500
+
+            const tableBody = document.getElementById('tableBody');
+            const result = document.getElementById('result');
+            
+            const trueValue = (-0.1 * 4 * Math.pow(x, 3)) - (0.15 * 3 * Math.pow(x, 2)) - (0.5 * 2 * x) - (0.25);
+
+            tableBody.innerHTML = '';
+            result.innerHTML = '<p class="text-blue-600">Calculating...</p>';
+            
+            let sum = 0;
+            let n = 1;
+            let approxError = 100;
+
+            while (n <= roundNum) {
+                // Create row
+                const row = document.createElement('tr');
+                row.className = 'bg-yellow-100';
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2 text-center">${n}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">${parseFloat(h.toPrecision(1))}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">...</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">...</td>
+                `;
+
+                tableBody.appendChild(row);
+                await sleep(speed);
+
+                // Calculate and show Result
+                const term = (f_of_x(x+h) - f_of_x(x-h))/(2 * h)
+                sum = term;
+                row.children[2].textContent = sum.toFixed(15);
+                await sleep(speed);
+
+                // Calculate and show True Error
+                const trueError = Math.abs((trueValue - sum) / trueValue) * 100;
+                row.children[3].textContent = trueError.toExponential(4);
+                await sleep(speed);
+
+                // Remove highlight
+                row.classList.remove('bg-yellow-100');
+
+                n++;
+                h = h / 10;
+
+                if (sum === 0) break;
+            }
+
+            const rows = tableBody.querySelectorAll('tr');
+            let minError = Infinity;
+            let minRow = null;
+            let minRowNum = null;
+            rows.forEach(row => {
+                const error = parseFloat(row.children[3].textContent);
+                if (error < minError) {
+                    minError = error;
+                    minRow = row;
+                    minRowNum = row.children[0].textContent;
+                }
+            });
+
+            if (minRow) {
+                minRow.classList.add('bg-green-200');
+                minRow.children[0].textContent += ' ⭐';
+            }
+            
+            result.innerHTML = `
+                <p class="text-green-600">✅ Optimal h found at row ${minRowNum} 
+                with εₜ = ${minError.toExponential(4)}%</p>
+            `;
+
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50');
+            isRunning = false;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>
