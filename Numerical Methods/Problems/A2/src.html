@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Methods</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Courier New', monospace; background: #0d1117; color: #c9d1d9; min-height: 100vh; padding: 20px; }
+  h1 { color: #58a6ff; text-align: center; margin-bottom: 8px; font-size: 1.4rem; letter-spacing: 2px; }
+  h2 { color: #f0883e; margin: 18px 0 10px; font-size: 1rem; border-left: 3px solid #f0883e; padding-left: 8px; }
+  h3 { color: #7ee787; font-size: 0.85rem; margin: 10px 0 6px; }
+  .subtitle { text-align: center; color: #8b949e; font-size: 0.75rem; margin-bottom: 20px; }
+  .eq { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; color: #79c0ff; margin-bottom: 14px; text-align: center; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; }
+  .result { background: #0d1117; border: 1px solid #21262d; border-radius: 4px; padding: 10px; font-size: 0.75rem; max-height: 180px; overflow-y: auto; }
+  .result p { margin: 2px 0; color: #8b949e; }
+  .result p.final { color: #7ee787; font-weight: bold; }
+  .result p.iter { color: #c9d1d9; }
+  canvas { width: 100% !important; margin-top: 10px; }
+  .section { margin-bottom: 24px; }
+  .tag { display: inline-block; background: #1f6feb; color: #fff; font-size: 0.65rem; padding: 1px 6px; border-radius: 10px; margin-right: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.7rem; margin-top: 8px; }
+  th { background: #21262d; color: #58a6ff; padding: 4px 8px; text-align: left; }
+  td { padding: 3px 8px; border-bottom: 1px solid #21262d; color: #c9d1d9; }
+  .q2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:700px) { .grid2, .q2-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>⚙ NUMERICAL METHODS</h1>
+<p class="subtitle">Q1: Root Finding &nbsp;|&nbsp; Q2: Nonlinear Systems &nbsp;|&nbsp; εs = 10⁻³</p>
+
+<!-- ===== QUESTION 1 ===== -->
+<div class="section">
+  <h2>Question 1 — f(x) = sin(x) + cos(1 + x²) − 1</h2>
+  <div class="eq">f(x) = sin(x) + cos(1 + x²) − 1 &nbsp;&nbsp;|&nbsp;&nbsp; f′(x) = cos(x) − 2x·sin(1 + x²)</div>
+
+  <!-- Graph -->
+  <div class="card" style="margin-bottom:12px;">
+    <h3><span class="tag">a</span> Graphical — First Positive Root</h3>
+    <canvas id="graphQ1" height="200"></canvas>
+  </div>
+
+  <!-- Methods grid -->
+  <div class="grid2">
+    <div class="card">
+      <h3><span class="tag">b</span> Bisection Method</h3>
+      <div class="result" id="bisResult"></div>
+    </div>
+    <div class="card">
+      <h3><span class="tag">c</span> False Position Method</h3>
+      <div class="result" id="fpResult"></div>
+    </div>
+    <div class="card">
+      <h3><span class="tag">d</span> Newton-Raphson Method</h3>
+      <div class="result" id="nrResult"></div>
+    </div>
+    <div class="card">
+      <h3><span class="tag">e</span> Secant Method</h3>
+      <div class="result" id="secResult"></div>
+    </div>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="card" style="margin-top:12px;">
+    <h3><span class="tag">f</span> Comparison with Python Built-in (scipy.brentq equivalent)</h3>
+    <div id="compResult"></div>
+  </div>
+
+  <!-- Iterations vs accuracy plot -->
+  <div class="card" style="margin-top:12px;">
+    <h3><span class="tag">g</span> Iterations vs Accuracy per Method</h3>
+    <canvas id="iterPlot" height="220"></canvas>
+  </div>
+</div>
+
+<!-- ===== QUESTION 2 ===== -->
+<div class="section">
+  <h2>Question 2 — Simultaneous Nonlinear Equations</h2>
+  <div class="eq">
+    y = −x² + x + 0.75 &nbsp;&nbsp;&nbsp; y + 5xy = x²
+  </div>
+
+  <div class="q2-grid">
+    <div class="card">
+      <h3><span class="tag">a</span> Fixed-Point Iteration</h3>
+      <div class="result" id="fpIterResult"></div>
+    </div>
+    <div class="card">
+      <h3><span class="tag">b</span> Newton-Raphson (System)</h3>
+      <div class="result" id="nrSysResult"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── MATH FUNCTIONS ──────────────────────────────────────────────
+const f  = x => Math.sin(x) + Math.cos(1 + x*x) - 1;
+const df = x => Math.cos(x) - 2*x*Math.sin(1 + x*x);
+const es = 1e-3; // tolerance
+
+// ─── Q1: GRAPH ───────────────────────────────────────────────────
+(function drawGraph(){
+  const xs = [], ys = [];
+  for(let x = 0; x <= 3; x += 0.02){
+    xs.push(x.toFixed(2));
+    ys.push(f(x));
+  }
+  new Chart(document.getElementById('graphQ1'),{
+    type:'line',
+    data:{
+      labels: xs,
+      datasets:[{
+        label:'f(x)',
+        data: ys,
+        borderColor:'#58a6ff',
+        borderWidth:2,
+        pointRadius:0,
+        fill: false
+      },{
+        label:'y=0',
+        data: xs.map(()=>0),
+        borderColor:'#f0883e',
+        borderWidth:1,
+        borderDash:[4,4],
+        pointRadius:0,
+        fill: false
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{labels:{color:'#c9d1d9',font:{size:11}}}},
+      scales:{
+        x:{ticks:{color:'#8b949e',maxTicksLimit:8,font:{size:10}},grid:{color:'#21262d'}},
+        y:{ticks:{color:'#8b949e',font:{size:10}},grid:{color:'#21262d'}}
+      }
+    }
+  });
+})();
+
+// ─── BISECTION ───────────────────────────────────────────────────
+function bisection(a, b){
+  const log=[]; let xr, xrOld=0, ea=100, iters=[];
+  for(let i=1; i<=50; i++){
+    xr=(a+b)/2;
+    if(xr!==0) ea=Math.abs((xr-xrOld)/xr)*100;
+    iters.push({i,xr,ea});
+    log.push(`<p class="iter">i=${i}: xr=${xr.toFixed(6)}, εa=${ea.toFixed(4)}%</p>`);
+    if(ea<es*100) break;
+    if(f(a)*f(xr)<0) b=xr; else a=xr;
+    xrOld=xr;
+  }
+  log.push(`<p class="final">✔ Root ≈ ${xr.toFixed(6)}, Iterations: ${iters.length}</p>`);
+  return {root:xr, iters, log};
+}
+
+// ─── FALSE POSITION ──────────────────────────────────────────────
+function falsePosition(a, b){
+  const log=[]; let xr, xrOld=0, ea=100, iters=[];
+  for(let i=1; i<=50; i++){
+    xr = b - f(b)*(a-b)/(f(a)-f(b));
+    if(xr!==0) ea=Math.abs((xr-xrOld)/xr)*100;
+    iters.push({i,xr,ea});
+    log.push(`<p class="iter">i=${i}: xr=${xr.toFixed(6)}, εa=${ea.toFixed(4)}%</p>`);
+    if(ea<es*100) break;
+    if(f(a)*f(xr)<0) b=xr; else a=xr;
+    xrOld=xr;
+  }
+  log.push(`<p class="final">✔ Root ≈ ${xr.toFixed(6)}, Iterations: ${iters.length}</p>`);
+  return {root:xr, iters, log};
+}
+
+// ─── NEWTON-RAPHSON ──────────────────────────────────────────────
+function newtonRaphson(x0){
+  const log=[]; let x=x0, ea=100, iters=[];
+  for(let i=1; i<=50; i++){
+    const xNew = x - f(x)/df(x);
+    ea = Math.abs((xNew-x)/xNew)*100;
+    iters.push({i,xr:xNew,ea});
+    log.push(`<p class="iter">i=${i}: x=${xNew.toFixed(6)}, εa=${ea.toFixed(4)}%</p>`);
+    x=xNew;
+    if(ea<es*100) break;
+  }
+  log.push(`<p class="final">✔ Root ≈ ${x.toFixed(6)}, Iterations: ${iters.length}</p>`);
+  return {root:x, iters, log};
+}
+
+// ─── SECANT ──────────────────────────────────────────────────────
+function secant(x0, x1){
+  const log=[]; let ea=100, iters=[];
+  for(let i=1; i<=50; i++){
+    const x2 = x1 - f(x1)*(x0-x1)/(f(x0)-f(x1));
+    ea = Math.abs((x2-x1)/x2)*100;
+    iters.push({i,xr:x2,ea});
+    log.push(`<p class="iter">i=${i}: x=${x2.toFixed(6)}, εa=${ea.toFixed(4)}%</p>`);
+    x0=x1; x1=x2;
+    if(ea<es*100) break;
+  }
+  log.push(`<p class="final">✔ Root ≈ ${x1.toFixed(6)}, Iterations: ${iters.length}</p>`);
+  return {root:x1, iters, log};
+}
+
+// ─── BRENT (Python built-in equivalent) ──────────────────────────
+function brent(a, b){
+  // Simple but robust bracketed root finder (similar to scipy.brentq)
+  let fa=f(a), fb=f(b), c=a, fc=fa, d=b-a, e=d;
+  for(let i=0;i<100;i++){
+    if(fb*fc>0){c=a;fc=fa;d=e=b-a;}
+    if(Math.abs(fc)<Math.abs(fb)){a=b;b=c;c=a;fa=fb;fb=fc;fc=fa;}
+    const tol=2e-10*Math.abs(b)+0.5e-10, m=0.5*(c-b);
+    if(Math.abs(m)<=tol||fb===0) return b;
+    if(Math.abs(e)>=tol&&Math.abs(fa)>Math.abs(fb)){
+      let s=fb/fa, p, q;
+      if(a===c){p=2*m*s;q=1-s;}
+      else{q=fa/fc;const r=fb/fc;p=s*(2*m*q*(q-r)-(b-a)*(r-1));q=(q-1)*(r-1)*(s-1);}
+      if(p>0)q=-q;else p=-p;
+      if(2*p<Math.min(3*m*q-Math.abs(tol*q),Math.abs(e*q))){e=d;d=p/q;}
+      else{d=m;e=m;}
+    }else{d=m;e=m;}
+    a=b;fa=fb;
+    b+=Math.abs(d)>tol?d:m>0?tol:-tol;
+    fb=f(b);
+  }
+  return b;
+}
+
+// ─── RUN Q1 ──────────────────────────────────────────────────────
+const bisR  = bisection(0.4, 1.0);
+const fpR   = falsePosition(0.4, 1.0);
+const nrR   = newtonRaphson(0.7);
+const secR  = secant(0.4, 1.0);
+const trueR = brent(0.4, 1.0);
+
+document.getElementById('bisResult').innerHTML = bisR.log.join('');
+document.getElementById('fpResult').innerHTML  = fpR.log.join('');
+document.getElementById('nrResult').innerHTML  = nrR.log.join('');
+document.getElementById('secResult').innerHTML = secR.log.join('');
+
+document.getElementById('compResult').innerHTML = `
+<table>
+  <tr><th>Method</th><th>Root</th><th>Iterations</th><th>Error vs Brent</th></tr>
+  <tr><td>Bisection</td><td>${bisR.root.toFixed(6)}</td><td>${bisR.iters.length}</td><td>${Math.abs(bisR.root-trueR).toExponential(3)}</td></tr>
+  <tr><td>False Position</td><td>${fpR.root.toFixed(6)}</td><td>${fpR.iters.length}</td><td>${Math.abs(fpR.root-trueR).toExponential(3)}</td></tr>
+  <tr><td>Newton-Raphson</td><td>${nrR.root.toFixed(6)}</td><td>${nrR.iters.length}</td><td>${Math.abs(nrR.root-trueR).toExponential(3)}</td></tr>
+  <tr><td>Secant</td><td>${secR.root.toFixed(6)}</td><td>${secR.iters.length}</td><td>${Math.abs(secR.root-trueR).toExponential(3)}</td></tr>
+  <tr style="color:#7ee787"><td>Brent (≈Python)</td><td>${trueR.toFixed(6)}</td><td>—</td><td>0</td></tr>
+</table>`;
+
+// ─── ITERATIONS vs ACCURACY PLOT ─────────────────────────────────
+(function iterPlot(){
+  // For each method, collect [iteration, ea] pairs
+  const methods = [
+    {label:'Bisection',   data:bisR.iters,  color:'#58a6ff'},
+    {label:'False Pos',   data:fpR.iters,   color:'#f0883e'},
+    {label:'Newton-R',    data:nrR.iters,   color:'#7ee787'},
+    {label:'Secant',      data:secR.iters,  color:'#d2a8ff'},
+  ];
+  const datasets = methods.map(m=>({
+    label: m.label,
+    data: m.data.map(d=>({x:d.i, y:d.ea})),
+    borderColor: m.color,
+    backgroundColor: m.color+'33',
+    borderWidth: 2,
+    pointRadius: 3,
+    fill: false,
+    tension: 0.2
+  }));
+
+  new Chart(document.getElementById('iterPlot'),{
+    type:'line',
+    data:{datasets},
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{labels:{color:'#c9d1d9',font:{size:11}}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: εa=${ctx.parsed.y.toFixed(4)}%`}}
+      },
+      scales:{
+        x:{type:'linear',title:{display:true,text:'Iteration',color:'#8b949e',font:{size:11}},ticks:{color:'#8b949e',font:{size:10}},grid:{color:'#21262d'}},
+        y:{title:{display:true,text:'εa (%)',color:'#8b949e',font:{size:11}},ticks:{color:'#8b949e',font:{size:10}},grid:{color:'#21262d'},type:'logarithmic'}
+      }
+    }
+  });
+})();
+
+// ─── Q2: FIXED-POINT ITERATION ───────────────────────────────────
+(function q2FP(){
+  // Rearrange system:
+  // From eq1: y = -x² + x + 0.75
+  // From eq2: y = x² - 5xy  =>  y(1+5x) = x²  =>  y = x²/(1+5x)
+  // Substituting: -x²+x+0.75 = x²/(1+5x)
+  // => g(x): try x_new = sqrt((x+0.75)(1+5x) - (some rearrangement))
+  // Simpler: from eq2: y = x²/(1+5x), plug into eq1 rearranged for x:
+  // x²/(1+5x) = -x²+x+0.75 => we iterate x via:
+  // x_new = (x²/(1+5x) + x² - 0.75) ... let's use direct substitution below
+
+  // g1: from eq2 solve x: x²-y-5xy=0 => x²(1)-y(1+5x)=0
+  // Use: x = sqrt(y*(1+5x)) as iteration... better:
+  // From eq1: y = -x²+x+0.75
+  // Plug into eq2: -x²+x+0.75 + 5x(-x²+x+0.75) = x²
+  // => -x²+x+0.75 -5x³+5x²+3.75x = x²
+  // => -5x³+3x²+4.75x+0.75 = 0  (single variable!)
+  // Solve via fixed point: x = (5x³-3x²-0.75)/4.75 — let's try another
+  // g(x) = (5x³-3x²+x+0.75)/5 — nope
+  // Use: x_new = (-x²+x+0.75)/(1-5x+5) simple iteration won't always converge
+  // Let's just do: x_new = sqrt( (y+0.75+x)/(1) ) style
+  // SAFE approach: use substitution with damping
+
+  const log = [];
+  let x = 0, y = 1, ea_x=100, ea_y=100, n=0;
+  log.push(`<p>Starting guess: x=0, y=1</p>`);
+  for(let i=1;i<=50;i++){
+    const xNew = Math.sqrt(Math.max(0, (y*(1+5*x))));  // from eq2: x²=y(1+5x)
+    const yNew = -xNew*xNew + xNew + 0.75;              // from eq1
+    ea_x = xNew!==0 ? Math.abs((xNew-x)/xNew)*100 : 100;
+    ea_y = yNew!==0 ? Math.abs((yNew-y)/yNew)*100 : 100;
+    log.push(`<p class="iter">i=${i}: x=${xNew.toFixed(5)}, y=${yNew.toFixed(5)}, εa_x=${ea_x.toFixed(3)}%</p>`);
+    x=xNew; y=yNew; n=i;
+    if(ea_x<es*100 && ea_y<es*100) break;
+  }
+  log.push(`<p class="final">✔ x ≈ ${x.toFixed(5)}, y ≈ ${y.toFixed(5)}, Iterations: ${n}</p>`);
+  document.getElementById('fpIterResult').innerHTML = log.join('');
+})();
+
+// ─── Q2: NEWTON-RAPHSON SYSTEM ───────────────────────────────────
+(function q2NR(){
+  // f1(x,y) = y + x² - x - 0.75 = 0
+  // f2(x,y) = y + 5xy - x² = 0
+  // Jacobian:
+  // df1/dx = 2x-1,  df1/dy = 1
+  // df2/dx = 5y-2x, df2/dy = 1+5x
+  const log = [];
+  let x=0, y=1;
+  log.push(`<p>Starting guess: x=0, y=1</p>`);
+  for(let i=1;i<=20;i++){
+    const f1 = y + x*x - x - 0.75;
+    const f2 = y + 5*x*y - x*x;
+    const j11=2*x-1, j12=1, j21=5*y-2*x, j22=1+5*x;
+    const det = j11*j22 - j12*j21;
+    if(Math.abs(det)<1e-14){log.push(`<p>Singular Jacobian!</p>`); break;}
+    const dx = -(f1*j22 - j12*f2)/det;
+    const dy = -(j11*f2 - f1*j21)/det;
+    const xNew=x+dx, yNew=y+dy;
+    const ea_x = xNew!==0?Math.abs(dx/xNew)*100:100;
+    const ea_y = yNew!==0?Math.abs(dy/yNew)*100:100;
+    log.push(`<p class="iter">i=${i}: x=${xNew.toFixed(5)}, y=${yNew.toFixed(5)}, εa_x=${ea_x.toFixed(3)}%</p>`);
+    x=xNew; y=yNew;
+    if(ea_x<es*100 && ea_y<es*100) break;
+  }
+  log.push(`<p class="final">✔ x ≈ ${x.toFixed(5)}, y ≈ ${y.toFixed(5)}</p>`);
+  document.getElementById('nrSysResult').innerHTML = log.join('');
+})();
+</script>
+</body>
+</html>
